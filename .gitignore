@@ -3,20 +3,19 @@
 /Libs/freetype/builds/windows/vc2010/Release Multithreaded
 /Libs/freetype/builds/windows/vc2010/x64/Release Multithreaded
 /Output
-/Sources/EventManager/Debug/*.exp
-/Sources/Graphics/Debug/*.exp
-*.exp
 /Sources/Client/Debug
-*.idb
-*.ilk
-*.lastbuildstate
 /Sources/EventManager/Debug
 /Sources/Graphics/Debug
 /Sources/Shared/Debug
-/Libs/freetype/builds/windows/vc2010/freetype.log
+/Sources/GUI/Debug/
 /Sources/Client/x64/Debug
 /Sources/EventManager/x64/Debug
 /Sources/Graphics/x64/Debug
 /Sources/GUI/x64/Debug
 /Sources/Shared/x64/Debug
+/Libs/freetype/builds/windows/vc2010/freetype.log
 *.pdb
+*.exp
+*.idb
+*.ilk
+*.lastbuildstate
