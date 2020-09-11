@@ -1,6 +1,8 @@
 #include "Utils.h"
 #include <stdlib.h>
 #include <sstream>
+#include <filesystem>
+#include <fstream>
 
 namespace Utils
 {
@@ -37,4 +39,21 @@ namespace Utils
         const auto s = str.substr(str.rfind(',') + 1);
         return std::stof(s);
     }
+
+    std::string ExtractPath(const std::string& fileName)
+    {
+        const std::filesystem::path p = fileName;
+        return p.parent_path().string();
+    }
+
+    std::string ReadFile(const std::string& fileName)
+    {
+        std::ifstream f(fileName, std::ios::in | std::ios::binary);
+        const auto sz = std::filesystem::file_size(fileName);
+        std::string result(sz, '\0');
+        f.read(result.data(), sz);
+
+        return result;
+    }
+
 }

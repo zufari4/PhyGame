@@ -16,7 +16,7 @@ bool Client::Init()
 {
     const auto& configFile = GetConfigFileName();
     Graphics::Init(configFile);
-    GUI::Init(Graphics::GetCurrentWindow(), configFile, GetDataDir());
+    GUI::Init(Graphics::GetCurrentWindow(), configFile);
     EventManager::PushObserver(this, EventManager::EventType::Quit);
 
     workFlag_ = true;

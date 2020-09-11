@@ -118,8 +118,7 @@ const SettingsManager::Property& SettingsManager::GetDefaultProperty(int propert
 
 void SettingsManager::createConfigFile() const
 {
-    const std::filesystem::path p = configFile_;
-    auto configDir = p.parent_path().string();
+    auto configDir = Utils::ExtractPath(configFile_);
     if (!std::filesystem::exists(configDir)) {
         if (!std::filesystem::create_directories(configDir)) {
             throw std::runtime_error("Can't create directory '" + configDir + "'");

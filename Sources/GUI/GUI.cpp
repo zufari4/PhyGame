@@ -6,52 +6,40 @@
 #include "SettingsManager.h"
 #include "GUISettings.h"
 #include "ControlFactory.h"
+#include "Utils.h"
 
 #include <stdexcept>
 #include <memory>
 
 namespace GUI
 {
-    using tdControls = std::vector<std::unique_ptr<BaseControl>>;
+    
 
     SDL_Window* window_ = nullptr;
     float current_font_size_ = 1.0;
     const ImVec2 imVec2Zero = ImVec2(0, 0);
     std::unique_ptr<SettingsManager> settingsManager_;
     tdControls controls_;
-    std::string resourcesPath_;
-
-    tdControls LoadGUIFromFile(const std::string& descriptionFile);
+    
     void SetFont(const std::string& filename, float sizeInPixels);
 
-    LIB_API void GUI::Init(SDL_Window* window, const std::string& configFile, const std::string& resourcesPath)
+    LIB_API void GUI::Init(SDL_Window* window, const std::string& configFile)
     {
         window_ = window;
-        resourcesPath_ = resourcesPath;
         settingsManager_ = std::make_unique<SettingsManager>(configFile, GetDefaultSettings(), true);
         ImGui_ImplSdlGL2_Init(window);
-        current_font_size_ = ImGui::GetFontSize();
-        controls_ = LoadGUIFromFile(settingsManager_->GetPropertyAsString(Setting::DescriptionFile));
+        controls_ = LoadGUIFromFile(Utils::ExtractPath(configFile) + "\\" + settingsManager_->GetPropertyAsString(Setting::DescriptionFile));
         const auto fontFile = settingsManager_->GetPropertyAsString(Setting::FontFile);
-        if (!fontFile.empty()) SetFont(resourcesPath + "\\" + fontFile, settingsManager_->GetPropertyAsFloat(Setting::FontSize));
-    }
-
-    tdControls LoadGUIFromFile(const std::string& descriptionFile)
-    {
-        tdControls res;
-        std::unique_ptr<Button> ctrl = createControlButton("btnGoToGarage");
-        ctrl->SetPos(10, 10, 20, 100);
-        ctrl->SetText("Привет");
-        res.push_back(std::move(ctrl));
-        return res;
+        if (!fontFile.empty()) SetFont(Utils::ExtractPath(configFile) + "\\" + fontFile, settingsManager_->GetPropertyAsFloat(Setting::FontSize));
+        current_font_size_ = ImGui::GetFontSize();
     }
 
     LIB_API void ProcessFrame()
     {
         ImGui_ImplSdlGL2_NewFrame(window_);
-        ImGuiStyle* style = &ImGui::GetStyle();
-        const auto prevPadding = style->WindowPadding;
-        style->WindowPadding = ImVec2(0, 0);
+        ImGuiStyle& style = ImGui::GetStyle();
+        const auto prevPadding = style.WindowPadding;
+        style.WindowPadding = ImVec2(0, 0);
         ImGui::Begin("", nullptr, imVec2Zero, 0.0f,
             ImGuiWindowFlags_NoTitleBar |
             ImGuiWindowFlags_NoResize |
@@ -65,14 +53,11 @@ namespace GUI
             ImGuiWindowFlags_NoBringToFrontOnFocus
             
         );
-        style->WindowPadding = prevPadding;
+        style.WindowPadding = prevPadding;
 
-        ImGui::SetCursorPos(ImVec2(20, 20));               
-        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.1f, 0.5f, 0.9f, 1.0f));
-        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.2f, 0.6f, 1.0f, 1.0f));
-        ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.0f, 0.4f, 0.8f, 1.0f));
-        ImGui::Button(u8"Привет мир!", ImVec2(200, 35));
-        ImGui::PopStyleColor(3);
+        for (const auto& control : controls_) {
+            control->Render();
+        }
 
         ImGui::End();
         ImGui::Render();

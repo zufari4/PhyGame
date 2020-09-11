@@ -60,7 +60,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Libs\SDL2\include;$(SolutionDir)Libs\Freetype\include;$(SolutionDir)Sources\Shared;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Libs\SDL2\include;$(SolutionDir)Libs\Freetype\include;$(SolutionDir)Sources\Shared;$(SolutionDir)Libs\Json</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -84,7 +84,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Libs\SDL2\include;$(SolutionDir)Libs\Freetype\include;$(SolutionDir)Sources\Shared;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Libs\SDL2\include;$(SolutionDir)Libs\Freetype\include;$(SolutionDir)Sources\Shared;$(SolutionDir)Libs\Json</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -100,6 +100,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="ControlFactory.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="GUI.cpp" />
@@ -110,7 +111,9 @@
     <ClCompile Include="imgui_impl_sdl.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Button.h" />
     <ClInclude Include="ControlFactory.h" />
+    <ClInclude Include="ControlTypes.h" />
     <ClInclude Include="GUI.h" />
     <ClInclude Include="GUISettings.h" />
     <ClInclude Include="BaseControl.h" />
