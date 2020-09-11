@@ -7,6 +7,8 @@ namespace GUI
     enum Setting : int
     {
         DescriptionFile,
+        FontFile,
+        FontSize
     };
 
     const SettingsManager::tdProperties& GetDefaultSettings();

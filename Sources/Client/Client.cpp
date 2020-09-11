@@ -16,12 +16,11 @@ bool Client::Init()
 {
     const auto& configFile = GetConfigFileName();
     Graphics::Init(configFile);
-    GUI::Init(Graphics::GetCurrentWindow(), configFile);
+    GUI::Init(Graphics::GetCurrentWindow(), configFile, GetDataDir());
     EventManager::PushObserver(this, EventManager::EventType::Quit);
 
     workFlag_ = true;
     return true;
-
 }
 
 void Client::Run()
@@ -30,6 +29,7 @@ void Client::Run()
     {
         EventManager::ProcessEvents();
         Graphics::ClearFrame();
+        GUI::ProcessFrame();
         Graphics::SwapFrame();
     }
 }

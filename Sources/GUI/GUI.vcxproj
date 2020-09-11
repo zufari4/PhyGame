@@ -100,6 +100,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ControlFactory.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="GUI.cpp" />
     <ClCompile Include="GUISettings.cpp" />
@@ -109,8 +110,10 @@
     <ClCompile Include="imgui_impl_sdl.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ControlFactory.h" />
     <ClInclude Include="GUI.h" />
     <ClInclude Include="GUISettings.h" />
+    <ClInclude Include="BaseControl.h" />
     <ClInclude Include="imconfig.h" />
     <ClInclude Include="imgui.h" />
     <ClInclude Include="imgui_freetype.h" />

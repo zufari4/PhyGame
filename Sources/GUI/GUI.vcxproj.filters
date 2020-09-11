@@ -39,6 +39,9 @@
     <ClCompile Include="GUISettings.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ControlFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GUI.h">
@@ -69,6 +72,12 @@
       <Filter>Source Files\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="GUISettings.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ControlFactory.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseControl.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
