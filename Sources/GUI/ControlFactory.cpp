@@ -112,6 +112,8 @@ namespace GUI
             auto childCtrl = CreateControl(jsonChild);
             ctrl->AddControl(std::move(childCtrl));
         }
+
+        return ctrl;
     }
 
     tdControls LoadGUIFromFile(const std::string& descriptionFile)

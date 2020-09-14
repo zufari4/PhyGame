@@ -19,8 +19,10 @@ namespace GUI
             , size_(0, 0)
             , visible_(true)
         {
-            std::unique_ptr<BaseControl> ctrl = std::unique_ptr<BaseControl>(this);
-            if (parent) parent->AddControl(std::move(ctrl));
+            if (parent) {
+                std::unique_ptr<BaseControl> ctrl = std::unique_ptr<BaseControl>(this);
+                parent->AddControl(std::move(ctrl));
+            }
         }
         virtual ~BaseControl() {}
         ControlType GetType() const { return type_; }
@@ -29,7 +31,7 @@ namespace GUI
         { 
             controls_.push_back(std::move(ctrl));
         }
-        virtual void SetPos(int x, int y, int width, int height) { pos_.x = x; pos_.y = y; size_.x = height; size_.y = width; }
+        virtual void SetPos(int x, int y, int width, int height) { pos_.x = x; pos_.y = y; size_.y = height; size_.x = width; }
         virtual void Render() const {}
         virtual void SetVisible(bool val) { visible_ = val; }
     protected:
