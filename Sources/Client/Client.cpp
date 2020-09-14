@@ -18,7 +18,7 @@ bool Client::Init()
     Graphics::Init(configFile);
     GUI::Init(Graphics::GetCurrentWindow(), configFile);
     EventManager::PushObserver(this, EventManager::EventType::Quit);
-
+    EventManager::PushObserver(this, EventManager::EventType::ButtonClick);
     workFlag_ = true;
     return true;
 }
@@ -45,6 +45,11 @@ void Client::EventHandling(const EventManager::IEvent& event)
     {
     case EventManager::EventType::Quit:
         workFlag_ = false;
+        break;
+    case EventManager::EventType::ButtonClick:
+        if (event.GetSender() == "btnExit") {
+            workFlag_ = false;
+        }
         break;
     }
 }

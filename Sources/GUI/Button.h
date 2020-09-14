@@ -15,6 +15,7 @@ namespace GUI
         void SetHoverColor(const ImVec4& val);
         void SetActiveColor(const ImVec4& val);
     private:
+        void ClickHandler() const;
         std::string text_;
         ImVec4 textColor_;
         ImVec4 normalColor_;

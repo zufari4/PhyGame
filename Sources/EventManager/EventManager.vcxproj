@@ -101,11 +101,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="EventButtonClick.cpp" />
     <ClCompile Include="EventFactory.cpp" />
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="EventQuit.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="EventButtonClick.h" />
     <ClInclude Include="EventFactory.h" />
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="EventQuit.h" />

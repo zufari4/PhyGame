@@ -4,10 +4,10 @@
 
 namespace EventManager
 {
-    class EventQuit : public IEvent
+    class EventButtonClick : public IEvent
     {
     public:
-        EventQuit();
+        EventButtonClick(const std::string& sender);
         EventType GetType() const override;
     };
 }

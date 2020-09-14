@@ -10,4 +10,5 @@ namespace EventManager
     LIB_API void ProcessEvents();
     LIB_API void PushObserver(IEventObserver* observer, EventType evType);
     LIB_API void PopObserver(IEventObserver* observer, EventType evType);
+    LIB_API void PushEvent(EventType evType, const std::string& sender);
 }

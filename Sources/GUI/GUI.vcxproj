@@ -60,7 +60,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Libs\SDL2\include;$(SolutionDir)Libs\Freetype\include;$(SolutionDir)Sources\Shared;$(SolutionDir)Libs\Json</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Libs\SDL2\include;$(SolutionDir)Libs\Freetype\include;$(SolutionDir)Sources\Shared;$(SolutionDir)Libs\Json;$(SolutionDir)Sources\EventManager</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -84,7 +84,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Libs\SDL2\include;$(SolutionDir)Libs\Freetype\include;$(SolutionDir)Sources\Shared;$(SolutionDir)Libs\Json</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Libs\SDL2\include;$(SolutionDir)Libs\Freetype\include;$(SolutionDir)Sources\Shared;$(SolutionDir)Libs\Json;$(SolutionDir)Sources\EventManager</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -127,6 +127,9 @@
     <ClInclude Include="stb_truetype.h" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\EventManager\EventManager.vcxproj">
+      <Project>{f29d9b0d-a70b-45ac-8c37-f48e373695e3}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\Shared\Shared.vcxproj">
       <Project>{3e163046-37b7-4504-9aef-625700178a68}</Project>
     </ProjectReference>

@@ -6,30 +6,39 @@
 #include <list>
 #include <mutex>
 #include <memory>
+#include <queue>
 
 namespace EventManager {
     using tdObservers = std::list<IEventObserver*>;
     using tdEvents = std::map<EventType, tdObservers>;
     tdEvents eventsObservers_;
     std::recursive_mutex observerMutex_;
+    std::recursive_mutex eventsMutex_;
+    std::queue<std::unique_ptr<IEvent>> events_;
 
     LIB_API void ProcessEvents()
     {
+        std::lock_guard<std::recursive_mutex> g(observerMutex_);
         SDL_Event event;
         while (SDL_PollEvent(&event))
         {
-            {
-                std::lock_guard<std::recursive_mutex> g(observerMutex_);
-                if (eventsObservers_.find(GetEventType(event)) == eventsObservers_.end()) continue;
-            }
+            if (eventsObservers_.find(GetEventType(event)) == eventsObservers_.end()) continue;
             auto newEvent = CreateEvent(event);
             if (newEvent) {
-                {
-                    std::lock_guard<std::recursive_mutex> g(observerMutex_);
-                    for (auto observer : eventsObservers_[newEvent->GetType()]) {
-                        observer->EventHandling(*newEvent);
-                    }
+                for (auto observer : eventsObservers_[newEvent->GetType()]) {
+                    observer->EventHandling(*newEvent);
                 }
+            }
+        }
+
+        std::lock_guard<std::recursive_mutex> guardEvents(eventsMutex_);
+        std::unique_ptr<IEvent> userEvent;
+        while (!events_.empty()) {
+            userEvent = std::move(events_.front());
+            events_.pop();
+            if (eventsObservers_.find(userEvent->GetType()) == eventsObservers_.end()) continue;
+            for (auto observer : eventsObservers_[userEvent->GetType()]) {
+                observer->EventHandling(*userEvent);
             }
         }
     }
@@ -67,6 +76,14 @@ namespace EventManager {
             }
         }
     }
+
+    LIB_API void PushEvent(EventType evType, const std::string& sender)
+    {
+        auto event = CreateEvent(evType, sender);
+        std::lock_guard<std::recursive_mutex> g(eventsMutex_);
+        events_.push(std::move(event));
+    }
+
 }
 
 

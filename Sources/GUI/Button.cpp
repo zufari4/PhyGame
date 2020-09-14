@@ -1,5 +1,7 @@
 #include "Button.h"
 #include "ControlTypes.h"
+#include "EventManager.h"
+#include "EventType.h"
 
 namespace GUI
 {
@@ -21,7 +23,7 @@ namespace GUI
         ImGui::PushStyleColor(ImGuiCol_Button, normalColor_);
         ImGui::PushStyleColor(ImGuiCol_ButtonHovered, hoverColor_);
         ImGui::PushStyleColor(ImGuiCol_ButtonActive, activeColor_);
-        ImGui::Button(text_.c_str(), size_);
+        if (ImGui::Button(text_.c_str(), size_)) ClickHandler();
         ImGui::PopStyleColor(4);
     }
 
@@ -43,6 +45,11 @@ namespace GUI
     void Button::SetActiveColor(const ImVec4& val)
     {
         activeColor_ = val;
+    }
+
+    void Button::ClickHandler() const
+    {
+        EventManager::PushEvent(EventManager::EventType::ButtonClick, name_);
     }
 
 }

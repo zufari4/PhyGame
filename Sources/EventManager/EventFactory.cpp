@@ -1,6 +1,7 @@
 #include "EventFactory.h"
 #include "EventQuit.h"
 #include "SDL.h"
+#include "EventButtonClick.h"
 
 namespace EventManager
 {
@@ -67,6 +68,21 @@ namespace EventManager
         break;
         }
         return eventPtr;
+    }
+
+    std::unique_ptr<IEvent> CreateEvent(EventType type, const std::string& sender)
+    {
+        std::unique_ptr<IEvent> res;
+        switch (type)
+        {
+        case EventManager::EventType::ButtonClick:
+            res = std::unique_ptr<IEvent>(new EventButtonClick(sender));
+            break;
+        default:
+            break;
+        }
+
+        return res;
     }
 
     EventType GetEventType(const SDL_Event& srcEvent)

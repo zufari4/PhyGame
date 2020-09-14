@@ -3,6 +3,13 @@
 
 namespace EventManager
 {
+
+    EventQuit::EventQuit():
+        IEvent("SYSTEM")
+    {
+
+    }
+
     EventType EventQuit::GetType() const
     {
         return EventType::Quit;
