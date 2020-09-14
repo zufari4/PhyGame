@@ -103,10 +103,12 @@
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="EventFactory.cpp" />
     <ClCompile Include="EventManager.cpp" />
+    <ClCompile Include="EventQuit.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventFactory.h" />
     <ClInclude Include="EventManager.h" />
+    <ClInclude Include="EventQuit.h" />
     <ClInclude Include="EventType.h" />
     <ClInclude Include="IEvent.h" />
     <ClInclude Include="IEventObserver.h" />

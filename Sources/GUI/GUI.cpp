@@ -74,7 +74,8 @@ namespace GUI
             throw std::runtime_error("Can't load font file '" + filename + "'");
         }
         else {
-            ImGuiFreeType::BuildFontAtlas(io.Fonts, ImGuiFreeType::RasterizerFlags::NoHinting);
+            ImGuiFreeType::RasterizerFlags hintType = static_cast<ImGuiFreeType::RasterizerFlags>(settingsManager_->GetPropertyAsInteger(Setting::FontHinting));
+            ImGuiFreeType::BuildFontAtlas(io.Fonts, hintType);
             current_font_size_ = sizeInPixels;
         }
         if (!font->IsLoaded()) {

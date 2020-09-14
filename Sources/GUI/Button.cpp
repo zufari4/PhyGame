@@ -17,11 +17,32 @@ namespace GUI
     void Button::Render() const
     {
         ImGui::SetCursorPos(pos_);
-        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.1f, 0.5f, 0.9f, 1.0f));
-        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.2f, 0.6f, 1.0f, 1.0f));
-        ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.0f, 0.4f, 0.8f, 1.0f));
+        ImGui::PushStyleColor(ImGuiCol_Text, textColor_);
+        ImGui::PushStyleColor(ImGuiCol_Button, normalColor_);
+        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, hoverColor_);
+        ImGui::PushStyleColor(ImGuiCol_ButtonActive, activeColor_);
         ImGui::Button(text_.c_str(), size_);
-        ImGui::PopStyleColor(3);
+        ImGui::PopStyleColor(4);
+    }
+
+    void Button::SetTextColor(const ImVec4& val)
+    {
+        textColor_ = val;
+    }
+
+    void Button::SetNormalColor(const ImVec4& val)
+    {
+        normalColor_ = val;
+    }
+
+    void Button::SetHoverColor(const ImVec4& val)
+    {
+        hoverColor_ = val;
+    }
+
+    void Button::SetActiveColor(const ImVec4& val)
+    {
+        activeColor_ = val;
     }
 
 }

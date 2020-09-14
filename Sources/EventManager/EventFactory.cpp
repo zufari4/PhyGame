@@ -1,13 +1,9 @@
 #include "EventFactory.h"
+#include "EventQuit.h"
 #include "SDL.h"
 
 namespace EventManager
 {
-    EventType EventQuit::GetType() const
-    {
-        return EventType::Quit;
-    }
-
     std::unique_ptr<IEvent> CreateEvent(const SDL_Event& srcEvent)
     {
         std::unique_ptr<IEvent> eventPtr;

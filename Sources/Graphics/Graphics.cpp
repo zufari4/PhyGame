@@ -60,8 +60,8 @@ namespace Graphics
         glBlendFunc(GL_SRC_ALPHA, settingsManager_->GetPropertyAsInteger(Setting::BlendFunc_GL_SRC_ALPHA));
 
         SetVSync(settingsManager_->GetPropertyAsBool(Setting::WindowVSyncEnable));
-        const std::string& clearColor = settingsManager_->GetPropertyAsString(Setting::ClearColor);
-        SetClearColor(Utils::storcolor(clearColor), Utils::stogcolor(clearColor), Utils::stobcolor(clearColor), 1.0f);
+        const auto clearColor = Utils::stocolor(settingsManager_->GetPropertyAsString(Setting::ClearColor));
+        SetClearColor(clearColor[0], clearColor[1], clearColor[2], 1.0f);
     }
 
     LIB_API void ClearFrame()

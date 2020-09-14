@@ -24,6 +24,9 @@
     <ClCompile Include="EventManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="EventQuit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IEventObserver.h">
@@ -39,6 +42,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="EventManager.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EventQuit.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

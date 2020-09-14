@@ -8,7 +8,8 @@ namespace GUI
     {
         DescriptionFile,
         FontFile,
-        FontSize
+        FontSize,
+        FontHinting
     };
 
     const SettingsManager::tdProperties& GetDefaultSettings();

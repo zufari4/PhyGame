@@ -23,21 +23,55 @@ namespace Utils
 
     float storcolor(const std::string& str)
     {
-        const auto s = str.substr(0, str.find(','));
-        return std::stof(s);
+        const auto s = Tokinize(str, ',');
+        return std::stof(s[0]);
     }
 
     float stogcolor(const std::string& str)
     {
-        auto s = str.substr(str.find(',')+1);
-        s = s.substr(0, s.find(','));
-        return std::stof(s);
+        const auto s = Tokinize(str, ',');
+        return std::stof(s[1]);
     }
 
     float stobcolor(const std::string& str)
     {
-        const auto s = str.substr(str.rfind(',') + 1);
-        return std::stof(s);
+        const auto s = Tokinize(str, ',');
+        return std::stof(s[2]);
+    }
+
+    float stoacolor(const std::string& str)
+    {
+        const auto s = Tokinize(str, ',');
+        return std::stof(s[3]);
+    }
+
+    std::vector<float> stocolor(const std::string& str)
+    {
+        std::vector<float> res;
+        const auto v = Tokinize(str, ',');
+        for (const auto& t : v) {
+            res.push_back(std::stof(t));
+        }
+        return res;
+    }
+
+    std::vector<std::string> Tokinize(const std::string& str, char delimiter)
+    {
+        std::vector<std::string> result;
+        size_t offset = 0;
+        while (true)
+        {
+            auto pos = str.find(delimiter, offset);
+            if (pos == std::string::npos) break;
+            std::string tok = str.substr(offset, pos - offset);
+            result.push_back(tok);
+            offset = pos + 1;
+        }
+        auto pos = str.rfind(delimiter);
+        if (pos != std::string::npos) {
+            result.push_back(str.substr(pos+1));
+        }
+        return result;
     }
 
     std::string ExtractPath(const std::string& fileName)
