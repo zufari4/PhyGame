@@ -101,28 +101,28 @@ namespace GUI
             if (paramIt == jsonObj.End()) {
                 throw std::runtime_error("Parameter 'textColor' not found");
             }
-            const auto textColor = Utils::stocolor(static_cast<const json::String&>(paramIt->element).Value());
+            const auto textColor = Utils::strtokf(static_cast<const json::String&>(paramIt->element).Value());
             control->SetTextColor(ImVec4(textColor[0], textColor[1], textColor[2], textColor[3]));
 
             paramIt = jsonObj.Find("normalColor");
             if (paramIt == jsonObj.End()) {
                 throw std::runtime_error("Parameter 'normalColor' not found");
             }
-            const auto normalColor = Utils::stocolor(static_cast<const json::String&>(paramIt->element).Value());
+            const auto normalColor = Utils::strtokf(static_cast<const json::String&>(paramIt->element).Value());
             control->SetNormalColor(ImVec4(normalColor[0], normalColor[1], normalColor[2], normalColor[3]));
 
             paramIt = jsonObj.Find("hoverColor");
             if (paramIt == jsonObj.End()) {
                 throw std::runtime_error("Parameter 'hoverColor' not found");
             }
-            const auto hoverColor = Utils::stocolor(static_cast<const json::String&>(paramIt->element).Value());
+            const auto hoverColor = Utils::strtokf(static_cast<const json::String&>(paramIt->element).Value());
             control->SetHoverColor(ImVec4(hoverColor[0], hoverColor[1], hoverColor[2], hoverColor[3]));
 
             paramIt = jsonObj.Find("activeColor");
             if (paramIt == jsonObj.End()) {
                 throw std::runtime_error("Parameter 'activeColor' not found");
             }
-            const auto activeColor = Utils::stocolor(static_cast<const json::String&>(paramIt->element).Value());
+            const auto activeColor = Utils::strtokf(static_cast<const json::String&>(paramIt->element).Value());
             control->SetActiveColor(ImVec4(activeColor[0], activeColor[1], activeColor[2], activeColor[3]));
         } break;
         case GUI::ControlType::Label:

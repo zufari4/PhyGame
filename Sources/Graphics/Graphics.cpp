@@ -61,7 +61,7 @@ namespace Graphics
         glBlendFunc(GL_SRC_ALPHA, settingsManager_->GetPropertyAsInteger(Setting::BlendFunc_GL_SRC_ALPHA));
 
         SetVSync(settingsManager_->GetPropertyAsBool(Setting::WindowVSyncEnable));
-        const auto clearColor = Utils::stocolor(settingsManager_->GetPropertyAsString(Setting::ClearColor));
+        const auto clearColor = Utils::strtokf(settingsManager_->GetPropertyAsString(Setting::ClearColor));
         SetClearColor(clearColor[0], clearColor[1], clearColor[2], 1.0f);
     }
 

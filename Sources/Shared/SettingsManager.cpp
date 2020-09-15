@@ -11,7 +11,20 @@ SettingsManager::SettingsManager(const std::string& configFile, const tdProperti
     if (fillConfigFile) createConfigFile();
 }
 
-int64_t SettingsManager::GetPropertyAsInteger(int propertyID) const
+int SettingsManager::GetPropertyAsInteger(int propertyID) const
+{
+    const auto& defaultProperty = GetDefaultProperty(propertyID);
+    const int defValue = std::stoi(defaultProperty.value);
+
+    Ini_file f;
+    if (!f.Open(configFile_)) {
+        return defValue;
+    }
+
+    return f.Get_value(defaultProperty.section, defaultProperty.name, defValue);
+}
+
+int64_t SettingsManager::GetPropertyAsInt64(int propertyID) const
 {
     const auto& defaultProperty = GetDefaultProperty(propertyID);
     const int64_t defValue = std::stoll(defaultProperty.value);

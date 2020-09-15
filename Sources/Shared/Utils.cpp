@@ -45,7 +45,7 @@ namespace Utils
         return std::stof(s[3]);
     }
 
-    std::vector<float> stocolor(const std::string& str)
+    std::vector<float> strtokf(const std::string& str)
     {
         std::vector<float> res;
         const auto v = Tokinize(str, ',');

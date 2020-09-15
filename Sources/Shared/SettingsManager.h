@@ -16,7 +16,8 @@ public:
     using tdProperties = std::unordered_map<int, Property>;
 
     SettingsManager(const std::string& configFile, const tdProperties& defaultSettings, bool fillConfigFile);
-    int64_t     GetPropertyAsInteger(int propertyID) const;
+    int         GetPropertyAsInteger(int propertyID) const;
+    int64_t     GetPropertyAsInt64(int propertyID) const;
     uint64_t    GetPropertyAsUnsigned(int propertyID) const;
     float       GetPropertyAsFloat(int propertyID) const;
     std::string GetPropertyAsString(int propertyID) const;

@@ -4,7 +4,7 @@
 #include "EventType.h"
 #include <memory>
 
-typedef union SDL_Event;
+union SDL_Event;
 
 namespace EventManager
 {
