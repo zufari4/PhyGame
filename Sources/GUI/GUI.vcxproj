@@ -100,6 +100,8 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AlignType.cpp" />
+    <ClCompile Include="BaseControl.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="ControlFactory.cpp" />
     <ClCompile Include="dllmain.cpp" />
@@ -107,6 +109,7 @@
     <ClCompile Include="GUISettings.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AlignType.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="ControlFactory.h" />
     <ClInclude Include="ControlTypes.h" />

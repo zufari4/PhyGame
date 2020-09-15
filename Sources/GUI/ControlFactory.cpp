@@ -2,6 +2,7 @@
 #include "ControlTypes.h"
 #include "Button.h"
 #include "Utils.h"
+#include "AlignType.h"
 #include "elements.h"
 #include "reader.h"
 
@@ -79,9 +80,16 @@ namespace GUI
         }
         const bool visible = static_cast<const json::Boolean&>(paramIt->element).Value();
 
+        paramIt = jsonObj.Find("align");
+        if (paramIt == jsonObj.End()) {
+            throw std::runtime_error("Parameter 'align' not found");
+        }
+        const AlignType align = strToAlign(static_cast<const json::String&>(paramIt->element).Value());
+
         ctrl = createControl(type, name);
         ctrl->SetPos(posX, posY, width, height);
         ctrl->SetVisible(visible);
+        ctrl->SetAlign(align);
 
         switch (type)
         {

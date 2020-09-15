@@ -71,7 +71,8 @@ namespace GUI
         style.WindowPadding = prevPadding;
 
         for (const auto& control : controls_) {
-            control->Render();
+            if (control->IsVisible())
+                control->Render();
         }
 
         ImGui::End();

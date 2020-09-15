@@ -12,6 +12,7 @@ namespace Utils
     std::vector<std::string> Tokinize(const std::string& str, char delimiter);
     std::string ExtractPath(const std::string& fileName);
     std::string ReadFile(const std::string& fileName);
+    bool strncasecpm(const std::string& a, const std::string& b);
 
     template<typename Derived, typename Base>
     std::unique_ptr<Derived> unique_ptr_cast(std::unique_ptr<Base> srcPtr)
