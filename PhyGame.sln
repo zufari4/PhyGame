@@ -17,6 +17,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GUI", "Sources\GUI\GUI.vcxp
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Shared", "Sources\Shared\Shared.vcxproj", "{3E163046-37B7-4504-9AEF-625700178A68}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "imgui", "Libs\imgui\imgui.vcxproj", "{1B46E7A7-4464-4AFE-9411-FBF28DB76801}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -60,12 +62,19 @@ Global
 		{3E163046-37B7-4504-9AEF-625700178A68}.Release Multithreaded|x64.Build.0 = Release|x64
 		{3E163046-37B7-4504-9AEF-625700178A68}.Release|x64.ActiveCfg = Release|x64
 		{3E163046-37B7-4504-9AEF-625700178A68}.Release|x64.Build.0 = Release|x64
+		{1B46E7A7-4464-4AFE-9411-FBF28DB76801}.Debug|x64.ActiveCfg = Debug|x64
+		{1B46E7A7-4464-4AFE-9411-FBF28DB76801}.Debug|x64.Build.0 = Debug|x64
+		{1B46E7A7-4464-4AFE-9411-FBF28DB76801}.Release Multithreaded|x64.ActiveCfg = Release|x64
+		{1B46E7A7-4464-4AFE-9411-FBF28DB76801}.Release Multithreaded|x64.Build.0 = Release|x64
+		{1B46E7A7-4464-4AFE-9411-FBF28DB76801}.Release|x64.ActiveCfg = Release|x64
+		{1B46E7A7-4464-4AFE-9411-FBF28DB76801}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{78B079BD-9FC7-4B9E-B4A6-96DA0F00248B} = {58EB5E4D-873E-40AD-B9C3-0EE080CB01F8}
+		{1B46E7A7-4464-4AFE-9411-FBF28DB76801} = {58EB5E4D-873E-40AD-B9C3-0EE080CB01F8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {524255E0-E95C-4351-A8AC-3EA8E29B21BD}

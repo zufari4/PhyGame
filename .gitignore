@@ -19,3 +19,5 @@
 *.idb
 *.ilk
 *.lastbuildstate
+/Libs/imgui/Debug
+/Libs/imgui/x64/Debug

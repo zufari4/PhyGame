@@ -12,4 +12,5 @@ namespace Graphics {
     LIB_API void SetVSync(bool enable);
     LIB_API void SetClearColor(float red, float green, float blue, float alpha);
     LIB_API SDL_Window* GetCurrentWindow();
+    LIB_API void* GetOpenGLContext();
 }

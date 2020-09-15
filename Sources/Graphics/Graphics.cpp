@@ -37,7 +37,7 @@ namespace Graphics
             SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
             settingsManager_->GetPropertyAsInteger(Setting::WindowWidth),
             settingsManager_->GetPropertyAsInteger(Setting::WindowHeight),
-            SDL_WINDOW_OPENGL | (fullscreen ? SDL_WINDOW_FULLSCREEN : 0));
+            SDL_WINDOW_OPENGL | SDL_WINDOW_ALLOW_HIGHDPI | (fullscreen ? SDL_WINDOW_FULLSCREEN : SDL_WINDOW_RESIZABLE));
         if (window_ == nullptr) {
             throw std::runtime_error("Can't create window (" + std::string(SDL_GetError()) + ")");
         }
@@ -46,6 +46,7 @@ namespace Graphics
         if (glContext_ == nullptr) {
             throw std::runtime_error("Can't create OpenGL context (" + std::string(SDL_GetError()) + ")");
         }
+        SDL_GL_MakeCurrent(window_, glContext_);
 
         if (settingsManager_->GetPropertyAsBool(Setting::Enable_GL_BLEND)) glEnable(GL_BLEND); else glDisable(GL_BLEND);
         if (settingsManager_->GetPropertyAsBool(Setting::Enable_GL_TEXTURE_2D)) glEnable(GL_TEXTURE_2D); else glDisable(GL_TEXTURE_2D);
@@ -88,4 +89,10 @@ namespace Graphics
     {
         return window_;
     }
+
+    LIB_API void* GetOpenGLContext()
+    {
+        return glContext_;
+    }
+
 }

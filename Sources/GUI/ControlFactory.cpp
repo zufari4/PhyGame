@@ -154,7 +154,6 @@ namespace GUI
     {
         const std::string jsonText = Utils::ReadFile(descriptionFile);
         std::istringstream istr(jsonText);
-        json::Reader r;
         json::Array jsonControls;
         json::Reader::Read(jsonControls, istr);
         tdControls res;

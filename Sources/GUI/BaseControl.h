@@ -31,7 +31,7 @@ namespace GUI
         { 
             controls_.push_back(std::move(ctrl));
         }
-        virtual void SetPos(int x, int y, int width, int height) { pos_.x = x; pos_.y = y; size_.y = height; size_.x = width; }
+        virtual void SetPos(int x, int y, int width, int height) { pos_.x = (float)x; pos_.y = (float)y; size_.y = (float)height; size_.x = (float)width; }
         virtual void Render() const {}
         virtual void SetVisible(bool val) { visible_ = val; }
     protected:

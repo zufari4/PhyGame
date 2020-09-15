@@ -1,6 +1,7 @@
 #include "GUI.h"
 #include "imgui.h"
 #include "imgui_impl_sdl.h"
+#include "imgui_impl_opengl2.h"
 #include "imgui_freetype.h"
 #include "SDL.h"
 #include "SettingsManager.h"
@@ -23,24 +24,39 @@ namespace GUI
     
     void SetFont(const std::string& filename, float sizeInPixels);
 
-    LIB_API void GUI::Init(SDL_Window* window, const std::string& configFile)
+    LIB_API void GUI::Init(SDL_Window* window, void* glContext, const std::string& configFile)
     {
         window_ = window;
         settingsManager_ = std::make_unique<SettingsManager>(configFile, GetDefaultSettings(), true);
-        ImGui_ImplSdlGL2_Init(window);
+        ImGui::CreateContext();
+        ImGuiIO& io = ImGui::GetIO(); (void)io;
+        ImGui::StyleColorsDark();
+        ImGui_ImplSDL2_InitForOpenGL(window_, glContext);
+        ImGui_ImplOpenGL2_Init();
+
         controls_ = LoadGUIFromFile(Utils::ExtractPath(configFile) + "\\" + settingsManager_->GetPropertyAsString(Setting::DescriptionFile));
         const auto fontFile = settingsManager_->GetPropertyAsString(Setting::FontFile);
         if (!fontFile.empty()) SetFont(Utils::ExtractPath(configFile) + "\\" + fontFile, settingsManager_->GetPropertyAsFloat(Setting::FontSize));
         current_font_size_ = ImGui::GetFontSize();
     }
 
+    LIB_API void Free()
+    {
+        ImGui_ImplOpenGL2_Shutdown();
+        ImGui_ImplSDL2_Shutdown();
+        ImGui::DestroyContext();
+    }
+
     LIB_API void ProcessFrame()
     {
-        ImGui_ImplSdlGL2_NewFrame(window_);
+        ImGui_ImplOpenGL2_NewFrame();
+        ImGui_ImplSDL2_NewFrame(window_);
+        ImGui::NewFrame();
+
         ImGuiStyle& style = ImGui::GetStyle();
         const auto prevPadding = style.WindowPadding;
         style.WindowPadding = ImVec2(0, 0);
-        ImGui::Begin("", nullptr, imVec2Zero, 0.0f,
+        ImGui::Begin("backgroundWindow", nullptr, 
             ImGuiWindowFlags_NoTitleBar |
             ImGuiWindowFlags_NoResize |
             ImGuiWindowFlags_NoMove |
@@ -48,10 +64,9 @@ namespace GUI
             ImGuiWindowFlags_NoScrollWithMouse |
             ImGuiWindowFlags_NoCollapse |
             ImGuiWindowFlags_NoSavedSettings |
-            //ImGuiWindowFlags_NoInputs |
             ImGuiWindowFlags_NoFocusOnAppearing |
-            ImGuiWindowFlags_NoBringToFrontOnFocus
-            
+            ImGuiWindowFlags_NoBringToFrontOnFocus |
+            ImGuiWindowFlags_NoBackground
         );
         style.WindowPadding = prevPadding;
 
@@ -61,6 +76,7 @@ namespace GUI
 
         ImGui::End();
         ImGui::Render();
+        ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
     }
 
     void SetFont(const std::string& filename, float sizeInPixels)
