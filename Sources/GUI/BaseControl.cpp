@@ -9,6 +9,7 @@ namespace GUI
         , pos_(0, 0)
         , size_(0, 0)
         , visible_(true)
+        , align_(AlignType::None)
     {
         if (parent) {
             std::unique_ptr<BaseControl> ctrl = std::unique_ptr<BaseControl>(this);
