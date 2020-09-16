@@ -24,6 +24,11 @@ namespace GUI
         virtual bool IsVisible() const;
         virtual void SetAlign(AlignType val);
         virtual AlignType GetAlign() const;
+        virtual int GetWidth() const;
+        virtual int GetHeight() const;
+        virtual int GetPosX() const;
+        virtual int GetPosY() const;
+        virtual std::vector<std::unique_ptr<BaseControl>>* GetControls();
     protected:
         std::string name_;
         ControlType type_;

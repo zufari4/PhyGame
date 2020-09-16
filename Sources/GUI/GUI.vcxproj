@@ -100,6 +100,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AlignHelper.cpp" />
     <ClCompile Include="AlignType.cpp" />
     <ClCompile Include="BaseControl.cpp" />
     <ClCompile Include="Button.cpp" />
@@ -107,8 +108,10 @@
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="GUI.cpp" />
     <ClCompile Include="GUISettings.cpp" />
+    <ClCompile Include="Instance.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AlignHelper.h" />
     <ClInclude Include="AlignType.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="ControlFactory.h" />
@@ -116,6 +119,7 @@
     <ClInclude Include="GUI.h" />
     <ClInclude Include="GUISettings.h" />
     <ClInclude Include="BaseControl.h" />
+    <ClInclude Include="Instance.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libs\freetype\builds\windows\vc2010\freetype.vcxproj">

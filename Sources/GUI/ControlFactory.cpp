@@ -145,22 +145,57 @@ namespace GUI
         }
 
         paramIt = jsonObj.Find("controls");
-        if (paramIt == jsonObj.End()) {
-            throw std::runtime_error("Parameter 'controls' not found");
+        if (paramIt != jsonObj.End()) {
+            const json::Array& childs = static_cast<const json::Array&>(paramIt->element);
+            for (auto it = childs.Begin(); it != childs.End(); ++it) {
+                const json::Object& jsonChild = *it;
+                auto childCtrl = CreateControl(jsonChild);
+                ctrl->AddControl(std::move(childCtrl));
+            }
         }
-        const json::Array& childs = static_cast<const json::Array&>(paramIt->element);
-        for (auto it = childs.Begin(); it != childs.End(); ++it) {
-            const json::Object& jsonChild = *it;
-            auto childCtrl = CreateControl(jsonChild);
-            ctrl->AddControl(std::move(childCtrl));
-        }
-
         return ctrl;
     }
 
     tdControls LoadGUIFromFile(const std::string& descriptionFile)
     {
+#ifdef _DEBUG
+        const std::string jsonText {u8R"(
+[
+        {
+            "type" : 3,
+            "name" : "btnGoToGarage",
+            "posX" : 10,
+            "posY" : 10,
+            "width": 200,
+            "height" : 35,
+            "visible" : true,
+            "align" : "center",
+            "text" : "Привет мир",
+            "textColor" : "0.0,1.0,1.0,1.0",
+            "normalColor" : "0.1,0.5,0.9,1.0",
+            "hoverColor" : "0.2,0.6,1.0,1.0",
+            "activeColor" : "0.0,0.4,0.8,1.0"
+        },
+        {
+            "type" : 3,
+            "name" : "btnExit",
+            "posX" : 10,
+            "posY" : 50,
+            "width": 200,
+            "height" : 35,
+            "text" : "Выход",
+            "visible" : true,
+            "align" : "bottom",
+            "textColor" : "1.0,1.0,1.0,1.0",
+            "normalColor" : "0.1,0.5,0.9,1.0",
+            "hoverColor" : "0.2,0.6,1.0,1.0",
+            "activeColor" : "0.0,0.4,0.8,1.0"           
+        }
+]
+)"};
+#else
         const std::string jsonText = Utils::ReadFile(descriptionFile);
+#endif
         std::istringstream istr(jsonText);
         json::Array jsonControls;
         json::Reader::Read(jsonControls, istr);

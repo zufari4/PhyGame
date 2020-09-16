@@ -2,6 +2,7 @@
 #include "EventQuit.h"
 #include "SDL.h"
 #include "EventButtonClick.h"
+#include "EventWindowResize.h"
 
 namespace EventManager
 {
@@ -59,11 +60,9 @@ namespace EventManager
         break;
         case SDL_WINDOWEVENT:
         {
-            /*if (event_.window.event == SDL_WINDOWEVENT_RESIZED) {
-                if (cb_window_resize_.func) {
-                    (cb_window_resize_.obj->*cb_window_resize_.func)((float)event_.window.data1, (float)event_.window.data2);
-                }
-            }*/
+            if (srcEvent.window.event == SDL_WINDOWEVENT_RESIZED) {
+                eventPtr = std::unique_ptr<IEvent>(new EventWindowResize((int)srcEvent.window.data1, (int)srcEvent.window.data2));
+            }
         }
         break;
         }

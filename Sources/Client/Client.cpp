@@ -36,7 +36,7 @@ void Client::Run()
 
 void Client::Free()
 {
-
+    GUI::Free();
 }
 
 void Client::EventHandling(const EventManager::IEvent& event)

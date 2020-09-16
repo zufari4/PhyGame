@@ -62,4 +62,29 @@ namespace GUI
         return align_;
     }
 
+    int BaseControl::GetWidth() const
+    {
+        return (int)size_.x;
+    }
+
+    int BaseControl::GetHeight() const
+    {
+        return (int)size_.y;
+    }
+
+    int BaseControl::GetPosX() const
+    {
+        return (int)pos_.x;
+    }
+
+    int BaseControl::GetPosY() const
+    {
+        return (int)pos_.y;
+    }
+
+    std::vector<std::unique_ptr<BaseControl>>* BaseControl::GetControls()
+    {
+        return &controls_;
+    }
+
 }

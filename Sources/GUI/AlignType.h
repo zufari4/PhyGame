@@ -8,10 +8,11 @@ namespace GUI
     {
         None,
         Top,
-        Botton,
+        Bottom,
         Left,
         Right,
-        Fill
+        Fill,
+        Center
     };
 
     AlignType strToAlign(const std::string& val);

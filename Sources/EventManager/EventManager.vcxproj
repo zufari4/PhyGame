@@ -105,6 +105,7 @@
     <ClCompile Include="EventFactory.cpp" />
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="EventQuit.cpp" />
+    <ClCompile Include="EventWindowResize.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventButtonClick.h" />
@@ -112,6 +113,7 @@
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="EventQuit.h" />
     <ClInclude Include="EventType.h" />
+    <ClInclude Include="EventWindowResize.h" />
     <ClInclude Include="IEvent.h" />
     <ClInclude Include="IEventObserver.h" />
   </ItemGroup>

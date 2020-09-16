@@ -10,7 +10,7 @@ namespace GUI
             return AlignType::Top;
         }
         else if (Utils::strncasecpm(val, "bottom")) {
-            return AlignType::Botton;
+            return AlignType::Bottom;
         }
         else if (Utils::strncasecpm(val, "left")) {
             return AlignType::Left;
@@ -20,6 +20,9 @@ namespace GUI
         }
         else if (Utils::strncasecpm(val, "fill")) {
             return AlignType::Fill;
+        }
+        else if (Utils::strncasecpm(val, "center")) {
+            return AlignType::Center;
         }
         else {
             return AlignType::None;
