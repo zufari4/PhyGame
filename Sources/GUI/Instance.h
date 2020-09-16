@@ -20,7 +20,6 @@ namespace GUI
     private:
         SDL_Window* window_ = nullptr;
         float current_font_size_ = 1.0;
-        const ImVec2 imVec2Zero = ImVec2(0, 0);
         std::unique_ptr<SettingsManager> settingsManager_;
         tdControls controls_;
         ImVec2 windowSize_;

@@ -6,6 +6,8 @@
 #include "AlignType.h"
 #include "imgui.h"
 
+static const ImVec2 zeroVec2{ 0, 0 };
+
 namespace GUI
 {
     enum class ControlType;

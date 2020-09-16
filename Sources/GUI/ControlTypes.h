@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 namespace GUI
 {
     enum class ControlType
@@ -12,4 +14,6 @@ namespace GUI
         TextBox,
         CheckBox,
     };
+
+    ControlType strToControlType(const std::string& str);
 }

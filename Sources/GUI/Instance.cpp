@@ -59,8 +59,8 @@ namespace GUI
 
         ImGuiStyle& style = ImGui::GetStyle();
         const auto prevPadding = style.WindowPadding;
-        style.WindowPadding = imVec2Zero;
-        ImGui::SetNextWindowPos(imVec2Zero, 0, imVec2Zero);
+        style.WindowPadding = zeroVec2;
+        ImGui::SetNextWindowPos(zeroVec2, 0, zeroVec2);
         ImGui::SetNextWindowSize(windowSize_);
         ImGui::Begin("backgroundWindow", nullptr,
             ImGuiWindowFlags_NoTitleBar |

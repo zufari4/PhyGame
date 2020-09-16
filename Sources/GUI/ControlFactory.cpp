@@ -1,6 +1,7 @@
 #include "ControlFactory.h"
 #include "ControlTypes.h"
 #include "Button.h"
+#include "Panel.h"
 #include "Utils.h"
 #include "AlignType.h"
 #include "elements.h"
@@ -17,6 +18,7 @@ namespace GUI
         case GUI::ControlType::Window:
             break;
         case GUI::ControlType::Panel:
+            ctrl = std::make_unique<Panel>(name, parent);
             break;
         case GUI::ControlType::Button:
             ctrl = std::make_unique<Button>(name, parent);
@@ -42,7 +44,7 @@ namespace GUI
         if (paramIt == jsonObj.End()) {
             throw std::runtime_error("Parameter 'type' not found");
         }
-        const ControlType type = static_cast<ControlType>(static_cast<const json::Number&>(paramIt->element).Value());
+        const ControlType type = strToControlType(static_cast<const json::String&>(paramIt->element).Value());
 
         paramIt = jsonObj.Find("name");
         if (paramIt == jsonObj.End()) {
@@ -95,8 +97,15 @@ namespace GUI
         {
         case GUI::ControlType::Window:
             break;
-        case GUI::ControlType::Panel:
-            break;
+        case GUI::ControlType::Panel: {
+            paramIt = jsonObj.Find("bgColor");
+            if (paramIt == jsonObj.End()) {
+                throw std::runtime_error("Parameter 'bgColor' not found");
+            }
+            Panel* control = static_cast<Panel*>(ctrl.get());
+            const auto c = Utils::strtokf(static_cast<const json::String&>(paramIt->element).Value());
+            control->SetBgColor(ImVec4(c[0], c[1], c[2], c[3]));
+        } break;
         case GUI::ControlType::Button: {
             paramIt = jsonObj.Find("text");
             if (paramIt == jsonObj.End()) {
@@ -161,36 +170,49 @@ namespace GUI
 #ifdef _DEBUG
         const std::string jsonText {u8R"(
 [
-        {
-            "type" : 3,
-            "name" : "btnGoToGarage",
-            "posX" : 10,
-            "posY" : 10,
-            "width": 200,
-            "height" : 35,
-            "visible" : true,
-            "align" : "center",
-            "text" : "Привет мир",
-            "textColor" : "0.0,1.0,1.0,1.0",
-            "normalColor" : "0.1,0.5,0.9,1.0",
-            "hoverColor" : "0.2,0.6,1.0,1.0",
-            "activeColor" : "0.0,0.4,0.8,1.0"
-        },
-        {
-            "type" : 3,
-            "name" : "btnExit",
-            "posX" : 10,
-            "posY" : 50,
-            "width": 200,
-            "height" : 35,
-            "text" : "Выход",
-            "visible" : true,
-            "align" : "bottom",
-            "textColor" : "1.0,1.0,1.0,1.0",
-            "normalColor" : "0.1,0.5,0.9,1.0",
-            "hoverColor" : "0.2,0.6,1.0,1.0",
-            "activeColor" : "0.0,0.4,0.8,1.0"           
-        }
+    {
+        "type" : "panel",
+        "name" : "panelMainMenu",
+        "posX" : 0,
+        "posY" : 0,
+        "width": 200,
+        "height" : 300,
+        "visible" : true,
+        "align" : "center",
+        "bgColor" : "0.01,0.05,0.2,1.0",
+        "controls" : [
+            {
+                "type" : "button",
+                "name" : "btnGoToGarage",
+                "posX" : 0,
+                "posY" : 0,
+                "width": 200,
+                "height" : 35,
+                "visible" : true,
+                "align" : "top",
+                "text" : "Привет мир",
+                "textColor" : "0.0,1.0,1.0,1.0",
+                "normalColor" : "0.1,0.5,0.9,1.0",
+                "hoverColor" : "0.2,0.6,1.0,1.0",
+                "activeColor" : "0.0,0.4,0.8,1.0"
+            },
+            {
+                "type" : "button",
+                "name" : "btnExit",
+                "posX" : 0,
+                "posY" : 0,
+                "width": 200,
+                "height" : 35,
+                "text" : "Выход",
+                "visible" : true,
+                "align" : "top",
+                "textColor" : "1.0,1.0,1.0,1.0",
+                "normalColor" : "0.1,0.5,0.9,1.0",
+                "hoverColor" : "0.2,0.6,1.0,1.0",
+                "activeColor" : "0.0,0.4,0.8,1.0"           
+            }
+        ]
+    }
 ]
 )"};
 #else
