@@ -13,6 +13,9 @@ namespace Utils
     std::vector<std::string> Tokinize(const std::string& str, char delimiter);
     std::string ExtractPath(const std::string& fileName);
     std::string ReadFile(const std::string& fileName);
+    long GetFileSize(const std::string& filename);
+    bool DirectoryExists(const std::string& path);
+    bool CreateDirectory(const std::string& path);
     bool strncasecpm(const std::string& a, const std::string& b);
 
     template<typename Derived, typename Base>

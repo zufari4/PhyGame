@@ -6,10 +6,7 @@ namespace GUI
 {
     enum Setting : int
     {
-        DescriptionFile,
-        FontFile,
-        FontSize,
-        FontHinting
+        Test
     };
 
     const SettingsManager::tdProperties& GetDefaultSettings();

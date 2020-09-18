@@ -6,10 +6,12 @@
 #include "ControlFactory.h"
 #include "Utils.h"
 #include "AlignHelper.h"
+#include "JsonCast.h"
 #include "imgui.h"
 #include "imgui_impl_sdl.h"
 #include "imgui_impl_opengl2.h"
 #include "SDL.h"
+#include "elements.h"
 #include <stdexcept>
 #include <memory>
 
@@ -17,30 +19,12 @@ namespace GUI
 {
 
     Instance::Instance(SDL_Window* window, void* glContext, const std::string& configFile)
+        : settingsManager_(configFile, GetDefaultSettings(), true)
     {
         window_ = window;
-        settingsManager_ = std::make_unique<SettingsManager>(configFile, GetDefaultSettings(), true);
         ImGui::CreateContext();
         ImGui_ImplSDL2_InitForOpenGL(window_, glContext);
         ImGui_ImplOpenGL2_Init();
-
-        controls_ = LoadGUIFromFile(Utils::ExtractPath(configFile) + "\\" + settingsManager_->GetPropertyAsString(Setting::DescriptionFile));
-        int winWidth;
-        int winHeight;
-        SDL_GL_GetDrawableSize(window, &winWidth, &winHeight);
-        windowSize_ = ImVec2((float)winWidth, (float)winHeight);
-        AlignHelper::UpdateControlsPosition(controls_, 0, 0, winWidth, winHeight);
-
-        const auto fontFile = settingsManager_->GetPropertyAsString(Setting::FontFile);
-        if (!fontFile.empty()) {
-            SetFont(
-                Utils::ExtractPath(configFile) + "\\" + fontFile,
-                settingsManager_->GetPropertyAsFloat(Setting::FontSize),
-                static_cast<ImGuiFreeType::RasterizerFlags>(settingsManager_->GetPropertyAsInteger(Setting::FontHinting))
-            );
-        }
-        current_font_size_ = ImGui::GetFontSize();
-
         EventManager::PushObserver(this, EventManager::EventType::WindowResize);
     }
 
@@ -101,6 +85,27 @@ namespace GUI
         }
     }
 
+    void Instance::LoadGUI(const std::string& jsonFile)
+    {
+        const json::Object jsonObj = JsonCast::loadFromFile(jsonFile);
+        const auto fontFile = static_cast<const json::String&>(jsonObj["FontFile"]).Value();
+        const float fontSize = float(static_cast<const json::Number&>(jsonObj["FontSize"]).Value());
+        int val = int(static_cast<const json::Number&>(jsonObj["FontHinting"]).Value());
+        const ImGuiFreeType::RasterizerFlags fontHinting = static_cast<ImGuiFreeType::RasterizerFlags>(val);
+
+        if (!fontFile.empty()) {
+            SetFont(Utils::ExtractPath(settingsManager_.GetConfigFileName()) + "/" + fontFile, fontSize, fontHinting);
+        }
+
+        controls_ = CreateControls(jsonObj["controls"]);
+
+        int winWidth;
+        int winHeight;
+        SDL_GL_GetDrawableSize(window_, &winWidth, &winHeight);
+        windowSize_ = ImVec2((float)winWidth, (float)winHeight);
+        AlignHelper::UpdateControlsPosition(controls_, 0, 0, winWidth, winHeight);
+    }
+
     void Instance::SetFont(const std::string& filename, float sizeInPixels, ImGuiFreeType::RasterizerFlags hintType)
     {
         if (filename.empty()) {
@@ -113,7 +118,6 @@ namespace GUI
         }
         else {
             ImGuiFreeType::BuildFontAtlas(io.Fonts, hintType);
-            current_font_size_ = sizeInPixels;
         }
         if (!font->IsLoaded()) {
             throw std::runtime_error("Can't load font file '" + filename + "'");

@@ -24,6 +24,9 @@
     <ClInclude Include="IniFile.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="JsonCast.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SettingsManager.cpp">
@@ -33,6 +36,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="IniFile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="JsonCast.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

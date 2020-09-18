@@ -17,6 +17,7 @@ bool Client::Init()
     const auto& configFile = GetConfigFileName();
     Graphics::Init(configFile);
     GUI::Init(Graphics::GetCurrentWindow(), Graphics::GetOpenGLContext(), configFile);
+    GUI::LoadGUI(GetDataDir()+ "/" + settingsManager_.GetPropertyAsString(ClientSetting::GUIMainMenuFile));
     EventManager::PushObserver(this, EventManager::EventType::Quit);
     EventManager::PushObserver(this, EventManager::EventType::ButtonClick);
     workFlag_ = true;
@@ -49,6 +50,9 @@ void Client::EventHandling(const EventManager::IEvent& event)
     case EventManager::EventType::ButtonClick:
         if (event.GetSender() == "btnExit") {
             workFlag_ = false;
+        }
+        if (event.GetSender() == "createMechanizm") {
+
         }
         break;
     }

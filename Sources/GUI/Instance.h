@@ -6,7 +6,6 @@
 #include "imgui.h"
 #include "imgui_freetype.h"
 #include <string>
-#include <memory>
 
 namespace GUI
 {
@@ -17,10 +16,10 @@ namespace GUI
         ~Instance();
         void ProcessFrame();
         void EventHandling(const EventManager::IEvent& event) override;
+        void LoadGUI(const std::string& jsonFile);
     private:
         SDL_Window* window_ = nullptr;
-        float current_font_size_ = 1.0;
-        std::unique_ptr<SettingsManager> settingsManager_;
+        SettingsManager settingsManager_;
         tdControls controls_;
         ImVec2 windowSize_;
 

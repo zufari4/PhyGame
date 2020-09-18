@@ -5,7 +5,7 @@
 #include "Utils.h"
 #include "AlignType.h"
 #include "elements.h"
-#include "reader.h"
+
 
 namespace GUI
 {
@@ -179,81 +179,19 @@ namespace GUI
 
         paramIt = jsonObj.Find("controls");
         if (paramIt != jsonObj.End()) {
-            const json::Array& childs = static_cast<const json::Array&>(paramIt->element);
-            for (auto it = childs.Begin(); it != childs.End(); ++it) {
-                const json::Object& jsonChild = *it;
-                auto childCtrl = CreateControl(jsonChild);
-                ctrl->AddControl(std::move(childCtrl));
+            auto childs = CreateControls(paramIt->element);
+            for (auto& it : childs) {
+                ctrl->AddControl(std::move(it));
             }
         }
         return ctrl;
     }
 
-    tdControls LoadGUIFromFile(const std::string& descriptionFile)
+    tdControls CreateControls(const json::Array& controls)
     {
-#ifdef _DEBUG
-        const std::string jsonText {u8R"(
-[
-    {
-        "type" : "panel",
-        "name" : "panelMainMenu",
-        "posX" : 0,
-        "posY" : 0,
-        "width": 300,
-        "height" : 300,
-        "visible" : true,
-        "align" : "center",
-        "rounding" : 5.0,
-        "padding" : "20,20,20,20",
-        "bgColor" : "0.01,0.05,0.2,1.0",
-        "controls" : [
-            {
-                "type" : "button",
-                "name" : "btnGoToGarage",
-                "posX" : 0,
-                "posY" : 0,
-                "width": 35,
-                "height" : 35,
-                "visible" : true,
-                "align" : "top",
-                "margin" : "0,0,0,10",
-                "rounding" : 5.0,
-                "text" : "Создать механизм",
-                "textColor" : "0.9,0.9,1.0,1.0",
-                "normalColor" : "0.1,0.5,0.9,1.0",
-                "hoverColor" : "0.2,0.6,1.0,1.0",
-                "activeColor" : "0.0,0.4,0.8,1.0"
-            },
-            {
-                "type" : "button",
-                "name" : "btnExit",
-                "posX" : 0,
-                "posY" : 0,
-                "width": 35,
-                "height" : 35,
-                "text" : "Выход",
-                "visible" : true,
-                "align" : "top",
-                "margin" : "0,0,0,0",
-                "rounding" : 5.0,
-                "textColor" : "0.9,0.9,1.0,1.0",
-                "normalColor" : "0.1,0.5,0.9,1.0",
-                "hoverColor" : "0.2,0.6,1.0,1.0",
-                "activeColor" : "0.0,0.4,0.8,1.0"           
-            }
-        ]
-    }
-]
-)"};
-#else
-        const std::string jsonText = Utils::ReadFile(descriptionFile);
-#endif
-        std::istringstream istr(jsonText);
-        json::Array jsonControls;
-        json::Reader::Read(jsonControls, istr);
         tdControls res;
 
-        for (auto it = jsonControls.Begin(); it != jsonControls.End(); ++it) {
+        for (auto it = controls.Begin(); it != controls.End(); ++it) {
             const json::Object& jsonObj = *it;
             auto ctrl = CreateControl(jsonObj);
             res.push_back(std::move(ctrl));

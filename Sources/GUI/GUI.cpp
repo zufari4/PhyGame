@@ -19,4 +19,10 @@ namespace GUI
     {
         instance->ProcessFrame();
     }
+
+    LIB_API void LoadGUI(const std::string& jsonFile)
+    {
+        instance->LoadGUI(jsonFile);
+    }
+
 }

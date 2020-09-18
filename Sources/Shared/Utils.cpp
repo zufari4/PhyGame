@@ -1,8 +1,8 @@
 #include "Utils.h"
 #include <stdlib.h>
 #include <sstream>
-#include <filesystem>
 #include <fstream>
+#include <direct.h>
 
 namespace Utils
 {
@@ -86,18 +86,42 @@ namespace Utils
 
     std::string ExtractPath(const std::string& fileName)
     {
-        const std::filesystem::path p = fileName;
-        return p.parent_path().string();
+        auto p = fileName.rfind('\\');
+        if (p == std::string::npos) p = fileName.rfind('/');
+        if (p == std::string::npos) throw std::runtime_error("Can't extract file path from file name '" + fileName + "'");
+        return fileName.substr(0, p);
     }
 
     std::string ReadFile(const std::string& fileName)
     {
-        std::ifstream f(fileName, std::ios::in | std::ios::binary);
-        const auto sz = std::filesystem::file_size(fileName);
-        std::string result(sz, '\0');
-        f.read(result.data(), sz);
+        std::ifstream f(fileName);
+        std::stringstream buffer;
+        buffer << f.rdbuf();
+        return buffer.str();
+    }
 
-        return result;
+    long GetFileSize(const std::string& filename)
+    {
+        struct stat stat_buf;
+        int rc = stat(filename.c_str(), &stat_buf);
+        return rc == 0 ? stat_buf.st_size : -1;
+    }
+
+    bool DirectoryExists(const std::string& path)
+    {
+        struct stat info;
+
+        if (stat(path.c_str(), &info) != 0)
+            return 0;
+        else if (info.st_mode & S_IFDIR)
+            return 1;
+        else
+            return 0;
+    }   
+
+    bool CreateDirectory(const std::string& path)
+    {
+        return _mkdir(path.c_str()) == 0;
     }
 
     bool strncasecpm(const std::string& a, const std::string& b)

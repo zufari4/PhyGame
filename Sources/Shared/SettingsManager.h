@@ -27,6 +27,7 @@ public:
     void SetPropertyValue(int propertyID, float val) const;
     void SetPropertyValue(int propertyID, const std::string& val) const;
     void SetPropertyValue(int propertyID, bool val) const;
+    const std::string& GetConfigFileName() const;
 private:
     std::string configFile_;
     const tdProperties& defaultSettings_;
