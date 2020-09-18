@@ -11,6 +11,7 @@ namespace GUI
         , visible_(true)
         , align_(AlignType::None)
         , margin_{0,0,0,0}
+        , padding_{0,0,0,0}
         , rounding_(0)
     {
         if (parent) {
@@ -100,6 +101,19 @@ namespace GUI
     const std::array<int,4>& BaseControl::GetMargin() const
     {
         return margin_;
+    }
+
+    void BaseControl::SetPadding(int left, int top, int right, int bottom)
+    {
+        padding_[0] = left;
+        padding_[1] = top;
+        padding_[2] = right;
+        padding_[3] = bottom;
+    }
+
+    const std::array<int, 4>& BaseControl::GetPadding() const
+    {
+        return padding_;
     }
 
     void BaseControl::SetRounding(float val)

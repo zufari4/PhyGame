@@ -6,6 +6,6 @@ namespace GUI
 {
     namespace AlignHelper
     {
-        void UpdateControlsPosition(tdControls& controls, int parentWidth, int parentHeight);
+        void UpdateControlsPosition(tdControls& controls, int parentStartX, int parentStartY, int parentWidth, int parentHeight);
     }
 }

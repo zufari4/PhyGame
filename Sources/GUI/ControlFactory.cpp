@@ -96,6 +96,13 @@ namespace GUI
             std::copy_n(v.begin(), 4, margin.begin());
         }
 
+        std::array<int, 4> padding = { 0,0,0,0 };
+        paramIt = jsonObj.Find("padding");
+        if (paramIt != jsonObj.End()) {
+            auto v = Utils::strtoki(static_cast<const json::String&>(paramIt->element).Value());
+            std::copy_n(v.begin(), 4, padding.begin());
+        }
+
         float rounding = 0.0f;
         paramIt = jsonObj.Find("rounding");
         if (paramIt != jsonObj.End()) {
@@ -107,6 +114,7 @@ namespace GUI
         ctrl->SetVisible(visible);
         ctrl->SetAlign(align);
         ctrl->SetMargin(margin[0], margin[1], margin[2], margin[3]);
+        ctrl->SetPadding(padding[0], padding[1], padding[2], padding[3]);
         ctrl->SetRounding(rounding);
 
         switch (type)
@@ -191,11 +199,12 @@ namespace GUI
         "name" : "panelMainMenu",
         "posX" : 0,
         "posY" : 0,
-        "width": 200,
+        "width": 300,
         "height" : 300,
         "visible" : true,
         "align" : "center",
         "rounding" : 5.0,
+        "padding" : "20,20,20,20",
         "bgColor" : "0.01,0.05,0.2,1.0",
         "controls" : [
             {
@@ -203,14 +212,14 @@ namespace GUI
                 "name" : "btnGoToGarage",
                 "posX" : 0,
                 "posY" : 0,
-                "width": 200,
+                "width": 35,
                 "height" : 35,
                 "visible" : true,
                 "align" : "top",
                 "margin" : "0,0,0,10",
                 "rounding" : 5.0,
-                "text" : "Привет мир",
-                "textColor" : "0.0,1.0,1.0,1.0",
+                "text" : "Создать механизм",
+                "textColor" : "0.9,0.9,1.0,1.0",
                 "normalColor" : "0.1,0.5,0.9,1.0",
                 "hoverColor" : "0.2,0.6,1.0,1.0",
                 "activeColor" : "0.0,0.4,0.8,1.0"
@@ -220,14 +229,14 @@ namespace GUI
                 "name" : "btnExit",
                 "posX" : 0,
                 "posY" : 0,
-                "width": 200,
+                "width": 35,
                 "height" : 35,
                 "text" : "Выход",
                 "visible" : true,
                 "align" : "top",
-                "margin" : "0,0,0,10",
+                "margin" : "0,0,0,0",
                 "rounding" : 5.0,
-                "textColor" : "1.0,1.0,1.0,1.0",
+                "textColor" : "0.9,0.9,1.0,1.0",
                 "normalColor" : "0.1,0.5,0.9,1.0",
                 "hoverColor" : "0.2,0.6,1.0,1.0",
                 "activeColor" : "0.0,0.4,0.8,1.0"           

@@ -4,14 +4,14 @@ namespace GUI
 {
     namespace AlignHelper
     {
-        void UpdateControlsPosition(tdControls& controls, int parentWidth, int parentHeight)
+        void UpdateControlsPosition(tdControls& controls, int parentStartX, int parentStartY, int parentWidth, int parentHeight)
         {
             int remainWidth = parentWidth;
             int remainHeight = parentHeight;
-            int xOffsetLeft = 0;
-            int yOffsetTop = 0;
-            int xOffsetRight = parentWidth;
-            int yOffsetBottom = parentHeight;
+            int xOffsetLeft = parentStartX;
+            int yOffsetTop = parentStartY;
+            int xOffsetRight = parentStartX + parentWidth;
+            int yOffsetBottom = parentStartY + parentHeight;
             int x = 0;
             int y = 0;
             int width = 0;
@@ -45,9 +45,9 @@ namespace GUI
                     remainWidth = 0;
                     remainHeight = 0;
                     xOffsetLeft = parentWidth;
-                    xOffsetRight = 0;
+                    xOffsetRight = parentStartX;
                     yOffsetTop = parentHeight;
-                    yOffsetBottom = 0;
+                    yOffsetBottom = parentStartY;
                 } break;
                 case AlignType::Left: {
                     x = xOffsetLeft + margin[0];
@@ -59,14 +59,15 @@ namespace GUI
                 } break;
                 case AlignType::Right: {
                     x = xOffsetRight - ctrl->GetWidth() - margin[2];
+                    y = yOffsetTop + margin[1];
                     width = ctrl->GetWidth();
                     height = remainHeight - (margin[1] + margin[3]);
                     remainWidth -= (margin[0] + ctrl->GetWidth()+ margin[2]);
                     xOffsetRight -= (margin[0] + ctrl->GetWidth() + margin[2]);
                 } break;
                 case AlignType::Center: {
-                    x = parentWidth / 2 - ctrl->GetWidth() / 2;
-                    y = parentHeight / 2 - ctrl->GetHeight() / 2;
+                    x = (parentWidth / 2 - ctrl->GetWidth() / 2) + parentStartX;
+                    y = (parentHeight / 2 - ctrl->GetHeight() / 2) + parentStartY;
                     width  = ctrl->GetWidth();
                     height = ctrl->GetHeight();
                 } break;
@@ -79,7 +80,11 @@ namespace GUI
                 }
                 
                 ctrl->SetPos(x, y, width, height);
-                UpdateControlsPosition(*ctrl->GetControls(), ctrl->GetWidth(), ctrl->GetHeight());
+                const auto& padding = ctrl->GetPadding();
+                UpdateControlsPosition(*ctrl->GetControls(), 
+                    padding[0], padding[1], 
+                    ctrl->GetWidth() - (padding[0] + padding[2]), 
+                    ctrl->GetHeight() - (padding[1] + padding[3]));
             }
         }
     }

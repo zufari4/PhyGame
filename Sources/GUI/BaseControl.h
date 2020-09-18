@@ -34,6 +34,8 @@ namespace GUI
         virtual std::vector<std::unique_ptr<BaseControl>>* GetControls();
         virtual void SetMargin(int left, int top, int right, int bottom);
         virtual const std::array<int, 4>& GetMargin() const;
+        virtual void SetPadding(int left, int top, int right, int bottom);
+        virtual const std::array<int, 4>& GetPadding() const;
         virtual void SetRounding(float val);
         virtual float GetRounding() const;
     protected:
@@ -46,6 +48,7 @@ namespace GUI
         bool visible_;
         AlignType align_;
         std::array<int, 4> margin_;
+        std::array<int, 4> padding_;
         float rounding_;
     };
 

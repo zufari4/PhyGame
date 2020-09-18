@@ -29,7 +29,7 @@ namespace GUI
         int winHeight;
         SDL_GL_GetDrawableSize(window, &winWidth, &winHeight);
         windowSize_ = ImVec2((float)winWidth, (float)winHeight);
-        AlignHelper::UpdateControlsPosition(controls_, winWidth, winHeight);
+        AlignHelper::UpdateControlsPosition(controls_, 0, 0, winWidth, winHeight);
 
         const auto fontFile = settingsManager_->GetPropertyAsString(Setting::FontFile);
         if (!fontFile.empty()) {
@@ -97,7 +97,7 @@ namespace GUI
             int winHeight;
             SDL_GL_GetDrawableSize(window_, &winWidth, &winHeight);
             windowSize_ = ImVec2((float)winWidth, (float)winHeight);
-            AlignHelper::UpdateControlsPosition(controls_, winWidth, winHeight);
+            AlignHelper::UpdateControlsPosition(controls_, 0, 0, winWidth, winHeight);
         }
     }
 
