@@ -15,6 +15,7 @@ namespace Utils
     std::string ReadFile(const std::string& fileName);
     long GetFileSize(const std::string& filename);
     bool DirectoryExists(const std::string& path);
+    bool FileIsExists(const std::string& filename);
     bool CreateDirectory(const std::string& path);
     bool strncasecpm(const std::string& a, const std::string& b);
 

@@ -52,7 +52,7 @@ void Client::EventHandling(const EventManager::IEvent& event)
             workFlag_ = false;
         }
         if (event.GetSender() == "createMechanizm") {
-
+            GUI::LoadGUI(GetDataDir() + "/" + settingsManager_.GetPropertyAsString(ClientSetting::GUICreateMechanizmFile));
         }
         break;
     }

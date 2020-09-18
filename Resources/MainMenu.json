@@ -1,0 +1,56 @@
+{
+    "FontFile" : "monof55.ttf",
+    "FontSize" : 20.0,
+    "FontHinting" : 4,
+    "controls" : [
+        {
+            "type" : "panel",
+            "name" : "panelMainMenu",
+            "posX" : 0,
+            "posY" : 0,
+            "width": 300,
+            "height" : 300,
+            "visible" : true,
+            "align" : "center",
+            "rounding" : 5.0,
+            "padding" : "20,20,20,20",
+            "bgColor" : "0.01,0.05,0.2,1.0",
+            "controls" : [
+                {
+                    "type" : "button",
+                    "name" : "createMechanizm",
+                    "posX" : 0,
+                    "posY" : 0,
+                    "width": 35,
+                    "height" : 35,
+                    "visible" : true,
+                    "align" : "top",
+                    "margin" : "0,0,0,10",
+                    "rounding" : 5.0,
+                    "text" : "Создать механизм",
+                    "textColor" : "0.9,0.9,1.0,1.0",
+                    "normalColor" : "0.1,0.5,0.9,1.0",
+                    "hoverColor" : "0.2,0.6,1.0,1.0",
+                    "activeColor" : "0.0,0.4,0.8,1.0"
+                },
+                {
+                    "type" : "button",
+                    "name" : "btnExit",
+                    "posX" : 0,
+                    "posY" : 0,
+                    "width": 35,
+                    "height" : 35,
+                    "text" : "Выход",
+                    "visible" : true,
+                    "align" : "top",
+                    "margin" : "0,0,0,0",
+                    "rounding" : 5.0,
+                    "textColor" : "0.9,0.9,1.0,1.0",
+                    "normalColor" : "0.1,0.5,0.9,1.0",
+                    "hoverColor" : "0.2,0.6,1.0,1.0",
+                    "activeColor" : "0.0,0.4,0.8,1.0"           
+                }
+            ]
+        }
+    ]
+}

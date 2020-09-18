@@ -94,6 +94,9 @@ namespace Utils
 
     std::string ReadFile(const std::string& fileName)
     {
+        if (!FileIsExists(fileName)) {
+            throw std::runtime_error("File '" + fileName + "' is not exists");
+        }
         std::ifstream f(fileName);
         std::stringstream buffer;
         buffer << f.rdbuf();
@@ -118,6 +121,17 @@ namespace Utils
         else
             return 0;
     }   
+
+    bool FileIsExists(const std::string& filename)
+    {
+        FILE* file = nullptr;
+        fopen_s(&file, filename.c_str(), "r");
+        if (file) {
+            fclose(file);
+            return true;
+        }
+        return false;
+    }
 
     bool CreateDirectory(const std::string& path)
     {
