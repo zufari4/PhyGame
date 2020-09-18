@@ -10,6 +10,8 @@ namespace GUI
         , size_(0, 0)
         , visible_(true)
         , align_(AlignType::None)
+        , margin_{0,0,0,0}
+        , rounding_(0)
     {
         if (parent) {
             std::unique_ptr<BaseControl> ctrl = std::unique_ptr<BaseControl>(this);
@@ -85,6 +87,29 @@ namespace GUI
     std::vector<std::unique_ptr<BaseControl>>* BaseControl::GetControls()
     {
         return &controls_;
+    }
+
+    void BaseControl::SetMargin(int left, int top, int right, int bottom)
+    {
+        margin_[0] = left;
+        margin_[1] = top;
+        margin_[2] = right;
+        margin_[3] = bottom;
+    }
+
+    const std::array<int,4>& BaseControl::GetMargin() const
+    {
+        return margin_;
+    }
+
+    void BaseControl::SetRounding(float val)
+    {
+        rounding_ = val;
+    }
+
+    float BaseControl::GetRounding() const
+    {
+        return rounding_;
     }
 
 }

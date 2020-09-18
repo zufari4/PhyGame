@@ -55,6 +55,16 @@ namespace Utils
         return res;
     }
 
+    std::vector<int> strtoki(const std::string& str)
+    {
+        std::vector<int> res;
+        const auto v = Tokinize(str, ',');
+        for (const auto& t : v) {
+            res.push_back(std::stoi(t));
+        }
+        return res;
+    }
+
     std::vector<std::string> Tokinize(const std::string& str, char delimiter)
     {
         std::vector<std::string> result;
@@ -92,10 +102,10 @@ namespace Utils
 
     bool strncasecpm(const std::string& a, const std::string& b)
     {
-        unsigned int sz = a.size();
+        size_t sz = a.size();
         if (b.size() != sz)
             return false;
-        for (unsigned int i = 0; i < sz; ++i)
+        for (size_t i = 0; i < sz; ++i)
             if (tolower(a[i]) != tolower(b[i]))
                 return false;
         return true;

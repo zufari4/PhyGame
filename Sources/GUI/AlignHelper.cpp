@@ -18,30 +18,30 @@ namespace GUI
             int height = 0;
 
             for (const auto& ctrl : controls) {
-
+                const auto& margin = ctrl->GetMargin();
                 switch (ctrl->GetAlign())
                 {
                 case AlignType::Top: {
-                    x = xOffsetLeft;
-                    y = yOffsetTop;
-                    width = remainWidth;
-                    height = std::min(ctrl->GetHeight(), remainHeight);
-                    yOffsetTop += ctrl->GetHeight();
-                    remainHeight -= ctrl->GetHeight();
+                    x = xOffsetLeft + margin[0];
+                    y = yOffsetTop + margin[1];
+                    width = remainWidth - (margin[0] + margin[2]);
+                    height = ctrl->GetHeight();
+                    yOffsetTop += (margin[1] + ctrl->GetHeight() + margin[3]);
+                    remainHeight -= (margin[1] + ctrl->GetHeight() + margin[3]);
                 } break;
                 case AlignType::Bottom: {
-                    x = xOffsetLeft;
-                    y = yOffsetBottom - ctrl->GetHeight();
-                    width = remainWidth;
-                    height = std::min(ctrl->GetHeight(), remainHeight);
-                    yOffsetBottom -= ctrl->GetHeight();
-                    remainHeight -= ctrl->GetHeight();
+                    x = xOffsetLeft + margin[0];
+                    y = yOffsetBottom - ctrl->GetHeight() - margin[3];
+                    width = remainWidth - (margin[0] + margin[2]);
+                    height = ctrl->GetHeight();
+                    yOffsetBottom -= (margin[1] + ctrl->GetHeight() + margin[3]);
+                    remainHeight -= (margin[1] + ctrl->GetHeight() + margin[3]);
                 } break;
                 case AlignType::Fill: {
-                    x = 0;
-                    y = 0;
-                    width = parentWidth;
-                    height = parentHeight;
+                    x = xOffsetLeft + margin[0];
+                    y = yOffsetTop + margin[1];
+                    width = remainWidth - (margin[0] + margin[2]);
+                    height = remainHeight - (margin[1] + margin[3]);
                     remainWidth = 0;
                     remainHeight = 0;
                     xOffsetLeft = parentWidth;
@@ -50,19 +50,19 @@ namespace GUI
                     yOffsetBottom = 0;
                 } break;
                 case AlignType::Left: {
-                    x = xOffsetLeft;
-                    y = yOffsetTop;
-                    width = std::min(ctrl->GetWidth(), remainWidth);
-                    height = remainHeight;
-                    remainWidth -= ctrl->GetWidth();
-                    xOffsetLeft += ctrl->GetWidth();
+                    x = xOffsetLeft + margin[0];
+                    y = yOffsetTop + margin[1];
+                    width = ctrl->GetWidth();
+                    height = remainHeight - (margin[1] + margin[3]);
+                    remainWidth -= (margin[0] + ctrl->GetWidth() + margin[2]);
+                    xOffsetLeft += (margin[0] + ctrl->GetWidth() + margin[2]);
                 } break;
                 case AlignType::Right: {
-                    x = xOffsetLeft - ctrl->GetWidth();
-                    width = std::min(ctrl->GetWidth(), remainWidth);
-                    height = remainHeight;
-                    remainWidth -= ctrl->GetWidth();
-                    xOffsetRight -= ctrl->GetWidth();
+                    x = xOffsetRight - ctrl->GetWidth() - margin[2];
+                    width = ctrl->GetWidth();
+                    height = remainHeight - (margin[1] + margin[3]);
+                    remainWidth -= (margin[0] + ctrl->GetWidth()+ margin[2]);
+                    xOffsetRight -= (margin[0] + ctrl->GetWidth() + margin[2]);
                 } break;
                 case AlignType::Center: {
                     x = parentWidth / 2 - ctrl->GetWidth() / 2;
@@ -70,7 +70,14 @@ namespace GUI
                     width  = ctrl->GetWidth();
                     height = ctrl->GetHeight();
                 } break;
+                default:
+                    x = ctrl->GetPosX();
+                    y = ctrl->GetPosY();
+                    width = ctrl->GetWidth();
+                    height = ctrl->GetHeight();
+                    break;
                 }
+                
                 ctrl->SetPos(x, y, width, height);
                 UpdateControlsPosition(*ctrl->GetControls(), ctrl->GetWidth(), ctrl->GetHeight());
             }

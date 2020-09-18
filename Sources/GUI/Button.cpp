@@ -23,7 +23,14 @@ namespace GUI
         ImGui::PushStyleColor(ImGuiCol_Button, normalColor_);
         ImGui::PushStyleColor(ImGuiCol_ButtonHovered, hoverColor_);
         ImGui::PushStyleColor(ImGuiCol_ButtonActive, activeColor_);
+        ImGuiStyle& style = ImGui::GetStyle();
+        const auto prevRounding = style.FrameRounding;
+        style.FrameRounding = rounding_;
+
         if (ImGui::Button(text_.c_str(), size_)) ClickHandler();
+
+        style.FrameRounding = prevRounding;
+
         ImGui::PopStyleColor(4);
     }
 

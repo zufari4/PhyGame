@@ -82,16 +82,32 @@ namespace GUI
         }
         const bool visible = static_cast<const json::Boolean&>(paramIt->element).Value();
 
+        AlignType align = AlignType::None;
         paramIt = jsonObj.Find("align");
-        if (paramIt == jsonObj.End()) {
-            throw std::runtime_error("Parameter 'align' not found");
+        if (paramIt != jsonObj.End()) {
+            align = strToAlign(static_cast<const json::String&>(paramIt->element).Value());
+            
         }
-        const AlignType align = strToAlign(static_cast<const json::String&>(paramIt->element).Value());
+
+        std::array<int, 4> margin = { 0,0,0,0 };
+        paramIt = jsonObj.Find("margin");
+        if (paramIt != jsonObj.End()) {
+            auto v = Utils::strtoki(static_cast<const json::String&>(paramIt->element).Value());
+            std::copy_n(v.begin(), 4, margin.begin());
+        }
+
+        float rounding = 0.0f;
+        paramIt = jsonObj.Find("rounding");
+        if (paramIt != jsonObj.End()) {
+            rounding = float(static_cast<const json::Number&>(paramIt->element).Value());
+        }
 
         ctrl = createControl(type, name);
         ctrl->SetPos(posX, posY, width, height);
         ctrl->SetVisible(visible);
         ctrl->SetAlign(align);
+        ctrl->SetMargin(margin[0], margin[1], margin[2], margin[3]);
+        ctrl->SetRounding(rounding);
 
         switch (type)
         {
@@ -179,6 +195,7 @@ namespace GUI
         "height" : 300,
         "visible" : true,
         "align" : "center",
+        "rounding" : 5.0,
         "bgColor" : "0.01,0.05,0.2,1.0",
         "controls" : [
             {
@@ -190,6 +207,8 @@ namespace GUI
                 "height" : 35,
                 "visible" : true,
                 "align" : "top",
+                "margin" : "0,0,0,10",
+                "rounding" : 5.0,
                 "text" : "Привет мир",
                 "textColor" : "0.0,1.0,1.0,1.0",
                 "normalColor" : "0.1,0.5,0.9,1.0",
@@ -206,6 +225,8 @@ namespace GUI
                 "text" : "Выход",
                 "visible" : true,
                 "align" : "top",
+                "margin" : "0,0,0,10",
+                "rounding" : 5.0,
                 "textColor" : "1.0,1.0,1.0,1.0",
                 "normalColor" : "0.1,0.5,0.9,1.0",
                 "hoverColor" : "0.2,0.6,1.0,1.0",

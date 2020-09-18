@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include <array>
 #include "AlignType.h"
 #include "imgui.h"
 
@@ -31,6 +32,10 @@ namespace GUI
         virtual int GetPosX() const;
         virtual int GetPosY() const;
         virtual std::vector<std::unique_ptr<BaseControl>>* GetControls();
+        virtual void SetMargin(int left, int top, int right, int bottom);
+        virtual const std::array<int, 4>& GetMargin() const;
+        virtual void SetRounding(float val);
+        virtual float GetRounding() const;
     protected:
         std::string name_;
         ControlType type_;
@@ -40,6 +45,8 @@ namespace GUI
         ImVec2 size_;
         bool visible_;
         AlignType align_;
+        std::array<int, 4> margin_;
+        float rounding_;
     };
 
     using tdControls = std::vector<std::unique_ptr<BaseControl>>;

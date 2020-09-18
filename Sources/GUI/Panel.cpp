@@ -16,12 +16,11 @@ namespace GUI
         ImGui::PushStyleColor(ImGuiCol_ChildBg, bgColor_);
 
         ImGuiStyle& style = ImGui::GetStyle();
-        const auto prevPadding = style.WindowPadding;
         const auto prevRounding = style.ChildRounding;
         const auto preBorder = style.WindowBorderSize;
-        style.WindowPadding = zeroVec2;
-        style.ChildRounding = 0;
+        style.ChildRounding = rounding_;
         style.ChildBorderSize = 0;
+
         ImGui::BeginChild(name_.c_str(), size_, true,
             ImGuiWindowFlags_NoTitleBar |
             ImGuiWindowFlags_NoResize |
@@ -33,7 +32,6 @@ namespace GUI
             ImGuiWindowFlags_NoFocusOnAppearing |
             ImGuiWindowFlags_NoBringToFrontOnFocus
         );
-        style.WindowPadding = prevPadding;
         style.ChildRounding = prevRounding;
         style.ChildBorderSize = preBorder;
 

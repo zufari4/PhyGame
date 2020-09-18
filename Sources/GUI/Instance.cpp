@@ -59,7 +59,9 @@ namespace GUI
 
         ImGuiStyle& style = ImGui::GetStyle();
         const auto prevPadding = style.WindowPadding;
+        const auto prevBorder = style.WindowBorderSize;
         style.WindowPadding = zeroVec2;
+        style.WindowBorderSize = 0;
         ImGui::SetNextWindowPos(zeroVec2, 0, zeroVec2);
         ImGui::SetNextWindowSize(windowSize_);
         ImGui::Begin("backgroundWindow", nullptr,
@@ -75,6 +77,7 @@ namespace GUI
             ImGuiWindowFlags_NoBackground
         );
         style.WindowPadding = prevPadding;
+        style.WindowBorderSize = prevBorder;
 
         for (const auto& control : controls_) {
             if (control->IsVisible())
