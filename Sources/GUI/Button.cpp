@@ -26,11 +26,11 @@ namespace GUI
         ImGuiStyle& style = ImGui::GetStyle();
         const auto prevRounding = style.FrameRounding;
         style.FrameRounding = rounding_;
-
+        ImGui::PushFont(font_);
         if (ImGui::Button(text_.c_str(), size_)) ClickHandler();
 
         style.FrameRounding = prevRounding;
-
+        ImGui::PopFont();
         ImGui::PopStyleColor(4);
     }
 

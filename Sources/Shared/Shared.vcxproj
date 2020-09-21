@@ -13,12 +13,14 @@
   <ItemGroup>
     <ClInclude Include="IniFile.h" />
     <ClInclude Include="JsonCast.h" />
+    <ClInclude Include="OS.h" />
     <ClInclude Include="SettingsManager.h" />
     <ClInclude Include="Utils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="IniFile.cpp" />
     <ClCompile Include="JsonCast.cpp" />
+    <ClCompile Include="OS.cpp" />
     <ClCompile Include="SettingsManager.cpp" />
     <ClCompile Include="Utils.cpp" />
   </ItemGroup>

@@ -14,6 +14,7 @@
 #include "elements.h"
 #include <stdexcept>
 #include <memory>
+#include <mutex>
 
 namespace GUI
 {
@@ -88,40 +89,13 @@ namespace GUI
     void Instance::LoadGUI(const std::string& jsonFile)
     {
         const json::Object jsonObj = JsonCast::loadFromFile(jsonFile);
-        const auto fontFile = static_cast<const json::String&>(jsonObj["FontFile"]).Value();
-        const float fontSize = float(static_cast<const json::Number&>(jsonObj["FontSize"]).Value());
-        int val = int(static_cast<const json::Number&>(jsonObj["FontHinting"]).Value());
-        const ImGuiFreeType::RasterizerFlags fontHinting = static_cast<ImGuiFreeType::RasterizerFlags>(val);
-
-        if (!fontFile.empty()) {
-            SetFont(Utils::ExtractPath(settingsManager_.GetConfigFileName()) + "/" + fontFile, fontSize, fontHinting);
-        }
-
-        controls_ = CreateControls(jsonObj["controls"]);
+        controls_ = CreateControls(Utils::ExtractPath(jsonFile), jsonObj["controls"]);
 
         int winWidth;
         int winHeight;
         SDL_GL_GetDrawableSize(window_, &winWidth, &winHeight);
         windowSize_ = ImVec2((float)winWidth, (float)winHeight);
         AlignHelper::UpdateControlsPosition(controls_, 0, 0, winWidth, winHeight);
-    }
-
-    void Instance::SetFont(const std::string& filename, float sizeInPixels, ImGuiFreeType::RasterizerFlags hintType)
-    {
-        if (filename.empty()) {
-            return;
-        }
-        ImGuiIO& io = ImGui::GetIO();
-        ImFont* font = io.Fonts->AddFontFromFileTTF(filename.c_str(), sizeInPixels, NULL, io.Fonts->GetGlyphRangesCyrillic());
-        if (font == NULL) {
-            throw std::runtime_error("Can't load font file '" + filename + "'");
-        }
-        else {
-            ImGuiFreeType::BuildFontAtlas(io.Fonts, hintType);
-        }
-        if (!font->IsLoaded()) {
-            throw std::runtime_error("Can't load font file '" + filename + "'");
-        }
     }
 
 }

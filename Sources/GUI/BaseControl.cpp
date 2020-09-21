@@ -126,4 +126,9 @@ namespace GUI
         return rounding_;
     }
 
+    void BaseControl::SetFont(ImFont* font)
+    {
+        font_ = font;
+    }
+
 }

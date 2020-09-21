@@ -7,6 +7,7 @@
 namespace Utils
 {
     std::string GetAppDataPath();
+    std::string GetCurrentDirectory();
     bool stob(const std::string& str);
     std::vector<float> strtokf(const std::string& str);
     std::vector<int> strtoki(const std::string& str);

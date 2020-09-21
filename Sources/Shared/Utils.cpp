@@ -1,8 +1,10 @@
 #include "Utils.h"
+#include "OS.h"
 #include <stdlib.h>
 #include <sstream>
 #include <fstream>
 #include <direct.h>
+
 
 namespace Utils
 {
@@ -12,6 +14,12 @@ namespace Utils
         _dupenv_s(&buff, nullptr, "APPDATA");
         std::string res(buff ? buff : "");
         return res;
+    }
+
+    std::string GetCurrentDirectory()
+    {
+        auto appFile = OS::GetApplicationFileName();
+        return ExtractPath(appFile);
     }
 
     bool stob(const std::string& str)
@@ -86,8 +94,9 @@ namespace Utils
 
     std::string ExtractPath(const std::string& fileName)
     {
+        auto l = fileName.rfind('/');
         auto p = fileName.rfind('\\');
-        if (p == std::string::npos) p = fileName.rfind('/');
+        if (l != std::string::npos && l > p) p = l;
         if (p == std::string::npos) throw std::runtime_error("Can't extract file path from file name '" + fileName + "'");
         return fileName.substr(0, p);
     }

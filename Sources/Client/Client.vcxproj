@@ -94,11 +94,13 @@
   <ItemGroup>
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="ClientSettings.cpp" />
+    <ClCompile Include="ErrorWindow.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h" />
     <ClInclude Include="ClientSettings.h" />
+    <ClInclude Include="ErrorWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EventManager\EventManager.vcxproj">

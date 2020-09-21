@@ -24,12 +24,18 @@
     <ClCompile Include="ClientSettings.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ErrorWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="ClientSettings.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ErrorWindow.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

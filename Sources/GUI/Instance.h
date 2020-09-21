@@ -4,7 +4,6 @@
 #include "IEventObserver.h"
 #include "SDL.h"
 #include "imgui.h"
-#include "imgui_freetype.h"
 #include <string>
 
 namespace GUI
@@ -22,7 +21,5 @@ namespace GUI
         SettingsManager settingsManager_;
         tdControls controls_;
         ImVec2 windowSize_;
-
-        void SetFont(const std::string& filename, float sizeInPixels, ImGuiFreeType::RasterizerFlags hintType);
     };
 }

@@ -38,6 +38,7 @@ namespace GUI
         virtual const std::array<int, 4>& GetPadding() const;
         virtual void SetRounding(float val);
         virtual float GetRounding() const;
+        virtual void SetFont(ImFont* font);
     protected:
         std::string name_;
         ControlType type_;
@@ -50,6 +51,7 @@ namespace GUI
         std::array<int, 4> margin_;
         std::array<int, 4> padding_;
         float rounding_;
+        ImFont* font_;
     };
 
     using tdControls = std::vector<std::unique_ptr<BaseControl>>;

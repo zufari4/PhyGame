@@ -4,6 +4,7 @@
 #include "SettingsManager.h"
 #include <atomic>
 #include <string>
+#include <memory>
 
 class Client: public EventManager::IEventObserver
 {
@@ -18,5 +19,5 @@ private:
     static std::string GetDataDir();
 
     std::atomic_bool workFlag_;
-    SettingsManager settingsManager_;
+    std::unique_ptr<SettingsManager> settingsManager_;
 };

@@ -4,6 +4,7 @@
 #include "Panel.h"
 #include "Utils.h"
 #include "AlignType.h"
+#include "FontManager.h"
 #include "elements.h"
 
 
@@ -36,7 +37,7 @@ namespace GUI
         return ctrl;
     }
 
-    std::unique_ptr<BaseControl> CreateControl(const json::Object jsonObj)
+    std::unique_ptr<BaseControl> CreateControl(const std::string& resourceDirectory, const json::Object jsonObj)
     {
         std::unique_ptr<BaseControl> ctrl;
 
@@ -108,6 +109,24 @@ namespace GUI
         if (paramIt != jsonObj.End()) {
             rounding = float(static_cast<const json::Number&>(paramIt->element).Value());
         }
+        
+        std::string fontFile;
+        paramIt = jsonObj.Find("fontFile");
+        if (paramIt != jsonObj.End()) {
+            fontFile = static_cast<const json::String&>(paramIt->element).Value();
+        }
+
+        float fontSize = 1;
+        paramIt = jsonObj.Find("fontSize");
+        if (paramIt != jsonObj.End()) {
+            fontSize = float(static_cast<const json::Number&>(paramIt->element).Value());
+        }
+
+        unsigned fontHinting = 0;
+        paramIt = jsonObj.Find("fontHinting");
+        if (paramIt != jsonObj.End()) {
+            fontHinting = unsigned(static_cast<const json::Number&>(paramIt->element).Value());
+        }
 
         ctrl = createControl(type, name);
         ctrl->SetPos(posX, posY, width, height);
@@ -116,6 +135,9 @@ namespace GUI
         ctrl->SetMargin(margin[0], margin[1], margin[2], margin[3]);
         ctrl->SetPadding(padding[0], padding[1], padding[2], padding[3]);
         ctrl->SetRounding(rounding);
+        if (!fontFile.empty()) {
+            ctrl->SetFont(FontManager::CreateFont(resourceDirectory + "/" + fontFile, fontSize, fontHinting));
+        }
 
         switch (type)
         {
@@ -179,7 +201,7 @@ namespace GUI
 
         paramIt = jsonObj.Find("controls");
         if (paramIt != jsonObj.End()) {
-            auto childs = CreateControls(paramIt->element);
+            auto childs = CreateControls(resourceDirectory, paramIt->element);
             for (auto& it : childs) {
                 ctrl->AddControl(std::move(it));
             }
@@ -187,13 +209,13 @@ namespace GUI
         return ctrl;
     }
 
-    tdControls CreateControls(const json::Array& controls)
+    tdControls CreateControls(const std::string& resourceDirectory, const json::Array& controls)
     {
         tdControls res;
 
         for (auto it = controls.Begin(); it != controls.End(); ++it) {
             const json::Object& jsonObj = *it;
-            auto ctrl = CreateControl(jsonObj);
+            auto ctrl = CreateControl(resourceDirectory, jsonObj);
             res.push_back(std::move(ctrl));
         }
 

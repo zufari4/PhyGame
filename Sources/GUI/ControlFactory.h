@@ -11,5 +11,5 @@ namespace json
 namespace GUI
 {
     std::unique_ptr<BaseControl> createControl(ControlType type, const std::string& name, BaseControl* parent = nullptr);
-    tdControls CreateControls(const json::Array& controls);
+    tdControls CreateControls(const std::string& resourceDirectory, const json::Array& controls);
 }
