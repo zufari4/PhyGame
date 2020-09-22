@@ -1,20 +1,25 @@
 #include "EventFactory.h"
 #include "EventQuit.h"
 #include "SDL.h"
+#include "EventUnknown.h"
 #include "EventButtonClick.h"
 #include "EventWindowResize.h"
+#include "EventMouseUp.h"
 
 namespace EventManager
 {
-    std::unique_ptr<IEvent> CreateEvent(const SDL_Event& srcEvent)
+    const IEvent& GetSystemEvent(const SDL_Event& srcEvent)
     {
-        std::unique_ptr<IEvent> eventPtr;
+        static EventUnknow eventUnknown_;
+        static EventQuit eventQuit_;
+        static EventWindowResize eventWindowResize_;
+        static EventMouseUp eventMouseUp_;
 
         switch (srcEvent.type) {
         case SDL_QUIT: {
-            eventPtr = std::unique_ptr<IEvent>(new EventQuit());
+            return eventQuit_;
         } break;
-        case SDL_MOUSEMOTION:
+        /*case SDL_MOUSEMOTION:
         {
             /*vec2 cursor = s2w(event_.button.x, event_.button.y);
             for (const auto& obj : game_objects_) {
@@ -22,12 +27,12 @@ namespace EventManager
             }
             if (cb_mouse_move_.func) {
                 (cb_mouse_move_.obj->*cb_mouse_move_.func)(cursor.x, cursor.y);
-            }*/
+            }
         }
-        break;
-        case SDL_MOUSEBUTTONDOWN:
+        break;*/
+        /*case SDL_MOUSEBUTTONDOWN:
         {
-            /*vec2 cursor = s2w(event_.button.x, event_.button.y);
+            vec2 cursor = s2w(event_.button.x, event_.button.y);
             if (phy_pause_)
             {
                 for (const auto& obj : game_objects_) {
@@ -45,28 +50,31 @@ namespace EventManager
             }
             if (cb_mouse_down_.func) {
                 (cb_mouse_down_.obj->*cb_mouse_down_.func)(cursor.x, cursor.y, event_.button.button);
-            }*/
+            }
         }
-        break;
-        case SDL_MOUSEBUTTONUP:
-        {
-            /*vec2 cursor = s2w(event_.button.x, event_.button.y);
-            for (const auto& obj : game_objects_)
-                obj->On_mouse_up(cursor.x, cursor.y, event_.button.button);
-            if (cb_mouse_up_.func) {
-                (cb_mouse_up_.obj->*cb_mouse_up_.func)(cursor.x, cursor.y, event_.button.button);
-            }*/
-        }
-        break;
+        break;*/
+        case SDL_MOUSEBUTTONUP: {
+            eventMouseUp_.SetX(srcEvent.button.x);
+            eventMouseUp_.SetY(srcEvent.button.y);
+            eventMouseUp_.SetButton(srcEvent.button.button);
+            return eventMouseUp_;
+
+        } break;
         case SDL_WINDOWEVENT:
         {
             if (srcEvent.window.event == SDL_WINDOWEVENT_RESIZED) {
-                eventPtr = std::unique_ptr<IEvent>(new EventWindowResize((int)srcEvent.window.data1, (int)srcEvent.window.data2));
+
+                eventWindowResize_.SetWindowWidth((int)srcEvent.window.data1);
+                eventWindowResize_.SetWindowWidth((int)srcEvent.window.data2);
+                return eventWindowResize_;
             }
+            else {
+                return eventUnknown_;
+            }
+        } break;
+        default:
+            return eventUnknown_;
         }
-        break;
-        }
-        return eventPtr;
     }
 
     std::unique_ptr<IEvent> CreateEvent(EventType type, const std::string& sender)

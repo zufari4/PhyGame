@@ -5,13 +5,8 @@ namespace EventManager
 {
 
     EventQuit::EventQuit():
-        IEvent("SYSTEM")
+        IEvent(EventType::Quit, "", true)
     {
 
-    }
-
-    EventType EventQuit::GetType() const
-    {
-        return EventType::Quit;
     }
 }

@@ -3,27 +3,24 @@
 
 namespace EventManager
 {
-    EventWindowResize::EventWindowResize(int windowWidth, int windowHeight)
-        : IEvent("SYSTEM")
-        , windowWidth_(windowWidth)
-        , windowHeight_(windowHeight)
+    EventWindowResize::EventWindowResize()
+        : IEvent(EventType::WindowResize, "", true)
     {
 
     }
 
-    EventManager::EventType EventWindowResize::GetType() const
+    void EventWindowResize::SetWindowHeight(int val)
     {
-        return EventType::WindowResize;
+        winParams_.height = val;
     }
 
-    int EventWindowResize::GetWindowWidth() const
+    void EventWindowResize::SetWindowWidth(int val)
     {
-        return windowWidth_;
+        winParams_.width = val;
     }
 
-    int EventWindowResize::GetWindowHeight() const
+    const IEventParams* EventWindowResize::GetParams() const
     {
-        return windowHeight_;
+        return &winParams_;
     }
-
 }

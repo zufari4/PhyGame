@@ -2,6 +2,8 @@
 #include "IEventObserver.h"
 #include "IEvent.h"
 #include "SettingsManager.h"
+#include "GameState.h"
+#include "ShapeConstructor.h"
 #include <atomic>
 #include <string>
 #include <memory>
@@ -20,4 +22,6 @@ private:
 
     std::atomic_bool workFlag_;
     std::unique_ptr<SettingsManager> settingsManager_;
+    GameState state_;
+    std::unique_ptr<ShapeConstructor> shapeConstructor_;
 };

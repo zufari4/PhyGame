@@ -102,10 +102,12 @@ copy /Y $(SolutionDir)Libs\SDL2\lib\SDL2.dll $(SolutionDir)Output\$(Configuratio
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="GraphicsSettings.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="GraphicsSettings.cpp" />

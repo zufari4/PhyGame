@@ -4,6 +4,7 @@
 #include "SDL_opengl.h"
 #include "SettingsManager.h"
 #include "GraphicsSettings.h"
+#include "Camera.h"
 #include "Utils.h"
 #include <stdexcept>
 #include <memory>
@@ -13,6 +14,7 @@ namespace Graphics
     SDL_Window* window_ = nullptr;
     SDL_GLContext glContext_ = nullptr;
     std::unique_ptr<SettingsManager> settingsManager_;
+    Camera camera_;
 
     LIB_API void Init(const std::string& configFile)
     {
@@ -93,6 +95,39 @@ namespace Graphics
     LIB_API void* GetOpenGLContext()
     {
         return glContext_;
+    }
+
+    LIB_API int GetFrameWidth()
+    {
+        int w;
+        int h;
+        SDL_GL_GetDrawableSize(window_, &w, &h);
+        return w;
+    }
+
+    LIB_API int GetFrameHeight()
+    {
+        int w;
+        int h;
+        SDL_GL_GetDrawableSize(window_, &w, &h);
+        return h;
+    }
+
+    LIB_API void SetCamera2D(float centerX, float centerY)
+    {
+        int w;
+        int h;
+        SDL_GL_GetDrawableSize(window_, &w, &h);
+        camera_.set2D(centerX, centerY, w, h);
+    }
+
+    LIB_API void DrawPoint(float x, float y)
+    {
+        glPointSize(10.0f);
+        glColor4f(1.0f, 0.0f, 0.0f, 0.5f);
+        glBegin(GL_POINTS);
+        glVertex2f(x, x);
+        glEnd();
     }
 
 }

@@ -15,7 +15,7 @@
             "controls" : [
                 {
                     "type" : "button",
-                    "name" : "setPoints",
+                    "name" : "setShape",
                     "posX" : 0,
                     "posY" : 0,
                     "width": 35,
@@ -27,7 +27,7 @@
                     "fontFile" : "JetBrainsMonoNL-Regular.ttf",
                     "fontSize" : 20.0,
                     "fontHinting" : 4,                    
-                    "text" : "Указать точки",
+                    "text" : "Добавить контур",
                     "textColor" : "0.9,0.9,1.0,1.0",
                     "normalColor" : "0.1,0.5,0.9,1.0",
                     "hoverColor" : "0.2,0.6,1.0,1.0",

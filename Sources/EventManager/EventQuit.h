@@ -8,6 +8,6 @@ namespace EventManager
     {
     public:
         EventQuit();
-        EventType GetType() const override;
+        const IEventParams* GetParams() const override { return nullptr; }
     };
 }

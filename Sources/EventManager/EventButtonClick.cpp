@@ -5,14 +5,9 @@ namespace EventManager
 {
 
     EventButtonClick::EventButtonClick(const std::string& sender):
-        IEvent(sender)
+        IEvent(EventType::ButtonClick, sender, false)
     {
 
-    }
-
-    EventManager::EventType EventButtonClick::GetType() const
-    {
-        return EventType::ButtonClick;
     }
 
 }

@@ -4,10 +4,10 @@
 
 namespace EventManager
 {
-    class EventButtonClick : public IEvent
+    class EventUnknow: public IEvent
     {
     public:
-        EventButtonClick(const std::string& sender);
+        EventUnknow();
         const IEventParams* GetParams() const override { return nullptr; }
     };
 }

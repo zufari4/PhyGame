@@ -5,15 +5,20 @@
 
 namespace EventManager
 {
+    struct WindowResizeParams: IEventParams
+    {
+        int width = 0;
+        int height = 0;
+    };
+
     class EventWindowResize : public IEvent
     {
     public:
-        EventWindowResize(int windowWidth, int windowHeight);
-        EventType GetType() const override;
-        int GetWindowWidth() const;
-        int GetWindowHeight() const;
+        EventWindowResize();
+        void SetWindowWidth(int val);
+        void SetWindowHeight(int val);
+        const IEventParams* GetParams() const override;
     private:
-        int windowWidth_;
-        int windowHeight_;
+        WindowResizeParams winParams_;
     };
 }

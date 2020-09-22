@@ -19,26 +19,28 @@ namespace EventManager {
     LIB_API void ProcessEvents()
     {
         std::lock_guard<std::recursive_mutex> g(observerMutex_);
+
+        // System events
         SDL_Event event;
         while (SDL_PollEvent(&event))
         {
             if (eventsObservers_.find(GetEventType(event)) == eventsObservers_.end()) continue;
-            auto newEvent = CreateEvent(event);
-            if (newEvent) {
-                for (auto observer : eventsObservers_[newEvent->GetType()]) {
-                    observer->EventHandling(*newEvent);
-                }
+            const auto& newEvent = GetSystemEvent(event);
+
+            for (auto observer : eventsObservers_[newEvent.GetType()]) {
+                observer->EventHandling(newEvent);
             }
         }
 
+        // Application events
         std::lock_guard<std::recursive_mutex> guardEvents(eventsMutex_);
-        std::unique_ptr<IEvent> userEvent;
+        std::unique_ptr<IEvent> appEvent;
         while (!events_.empty()) {
-            userEvent = std::move(events_.front());
+            appEvent = std::move(events_.front());
             events_.pop();
-            if (eventsObservers_.find(userEvent->GetType()) == eventsObservers_.end()) continue;
-            for (auto observer : eventsObservers_[userEvent->GetType()]) {
-                observer->EventHandling(*userEvent);
+            if (eventsObservers_.find(appEvent->GetType()) == eventsObservers_.end()) continue;
+            for (auto observer : eventsObservers_[appEvent->GetType()]) {
+                observer->EventHandling(*appEvent);
             }
         }
     }
