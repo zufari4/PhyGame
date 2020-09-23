@@ -30,7 +30,7 @@ bool Client::Init()
         EventManager::PushObserver(this, EventManager::EventType::MouseUp);
         int frameWidth = Graphics::GetFrameWidth();
         int frameHeight = Graphics::GetFrameHeight();
-        Graphics::SetCamera2D(frameWidth / 2.0f, frameHeight / 2.0f);
+        Graphics::SetCamera2D(0, 0);
         workFlag_ = true;
         state_ = GameState::MainMenu;
         return true;

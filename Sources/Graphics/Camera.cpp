@@ -22,5 +22,30 @@ namespace Graphics
             0, 1);
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
+        centerX_ = centerX;
+        centerY_ = centerY;
+        frameWidth_ = (float)frameWidth;
+        frameHeight_ = (float)frameHeight;
     }
+
+    float Camera::WindowCoordToWorldX(float x) const
+    {
+        return x - frameWidth_ * 0.5f;
+    }
+
+    float Camera::WindowCoordToWorldY(float y) const
+    {
+        return y - frameHeight_ * 0.5f;
+    }
+
+    float Camera::WorldCoordToWindowX(float x) const
+    {
+        return x + frameWidth_ * 0.5f;
+    }
+
+    float Camera::WorldCoordToWindowY(float y) const
+    {
+        return y + frameHeight_ * 0.5f;
+    }
+
 }

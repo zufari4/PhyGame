@@ -22,5 +22,8 @@ namespace Graphics {
     LIB_API void DrawPoint(const Point& p, float pointSize, const Color4f& color);
     LIB_API void DrawPoints(const std::vector<Point>& v, float pointSize, const Color4f& color);
     LIB_API void DrawLines(const std::vector<Point>& v, const Color4f& color);
-
+    LIB_API float win2worldX(float x);
+    LIB_API float win2worldY(float y);
+    LIB_API float world2winX(float x);
+    LIB_API float world2winY(float y);
 }
