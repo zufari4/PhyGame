@@ -39,6 +39,8 @@ namespace GUI
         virtual void SetRounding(float val);
         virtual float GetRounding() const;
         virtual void SetFont(ImFont* font);
+        virtual void SetFileActivate(const std::string& fileName);
+        virtual const std::string& GetFileActivate() const;
     protected:
         std::string name_;
         ControlType type_;
@@ -52,6 +54,7 @@ namespace GUI
         std::array<int, 4> padding_;
         float rounding_;
         ImFont* font_;
+        std::string fileActivate_;
     };
 
     using tdControls = std::vector<std::unique_ptr<BaseControl>>;

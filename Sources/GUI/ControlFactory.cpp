@@ -128,6 +128,12 @@ namespace GUI
             fontHinting = unsigned(static_cast<const json::Number&>(paramIt->element).Value());
         }
 
+        std::string fileActivate;
+        paramIt = jsonObj.Find("fileActivate");
+        if (paramIt != jsonObj.End()) {
+            fileActivate = static_cast<const json::String&>(paramIt->element).Value();
+        }
+
         ctrl = createControl(type, name);
         ctrl->SetPos(posX, posY, width, height);
         ctrl->SetVisible(visible);
@@ -137,6 +143,9 @@ namespace GUI
         ctrl->SetRounding(rounding);
         if (!fontFile.empty()) {
             ctrl->SetFont(FontManager::CreateFont(resourceDirectory + "/" + fontFile, fontSize, fontHinting));
+        }
+        if (!fileActivate.empty()) {
+            ctrl->SetFileActivate(fileActivate);
         }
 
         switch (type)

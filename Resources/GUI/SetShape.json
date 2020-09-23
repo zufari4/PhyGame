@@ -1,0 +1,17 @@
+{
+    "controls" : [
+        {
+            "type" : "panel",
+            "name" : "panelTools",
+            "posX" : 0,
+            "posY" : 0,
+            "width": 300,
+            "height" : 0,
+            "visible" : true,
+            "align" : "left",
+            "rounding" : 0.0,
+            "padding" : "20,20,20,20",
+            "bgColor" : "0.1,0.1,0.2,1.0"
+        }
+    ]
+}

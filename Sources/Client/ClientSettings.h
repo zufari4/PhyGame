@@ -6,8 +6,7 @@ enum ClientSetting: int
 {
     GridVisible,
     GridSize,
-    GUIMainMenuFile,
-    GUICreateMechanizmFile
+    GUIMainFile,
 };
 
 const SettingsManager::tdProperties& GetDefaultClientSettings();

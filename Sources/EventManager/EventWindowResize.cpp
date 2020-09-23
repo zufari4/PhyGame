@@ -4,7 +4,7 @@
 namespace EventManager
 {
     EventWindowResize::EventWindowResize()
-        : IEvent(EventType::WindowResize, "", true)
+        : IEvent(EventType::WindowResize, true)
     {
 
     }

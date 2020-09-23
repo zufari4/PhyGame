@@ -5,9 +5,9 @@ namespace GUI
 {
     std::unique_ptr<Instance> instance;
 
-    LIB_API void GUI::Init(SDL_Window* window, void* glContext, const std::string& configFile)
+    LIB_API void GUI::Init(SDL_Window* window, void* glContext, const std::string& configFile, const std::string& resourceDirectory)
     {
-        instance = std::make_unique<Instance>(window, glContext, configFile);
+        instance = std::make_unique<Instance>(window, glContext, configFile, resourceDirectory);
     }
 
     LIB_API void Free()
@@ -23,6 +23,11 @@ namespace GUI
     LIB_API void LoadGUI(const std::string& jsonFile)
     {
         instance->LoadGUI(jsonFile);
+    }
+
+    const std::string& GetResourceDirectory()
+    {
+        return instance->GetResourceDirectory();
     }
 
 }

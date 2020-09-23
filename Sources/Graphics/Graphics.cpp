@@ -121,12 +121,31 @@ namespace Graphics
         camera_.set2D(centerX, centerY, w, h);
     }
 
-    LIB_API void DrawPoint(float x, float y)
+    LIB_API void DrawPoint(const Point& p, float pointSize, const Color4f& color)
     {
-        glPointSize(10.0f);
-        glColor4f(1.0f, 0.0f, 0.0f, 0.5f);
+        glPointSize(pointSize);
+        glColor4fv(color.data());
         glBegin(GL_POINTS);
-        glVertex2f(x, x);
+        glVertex2f(p.x, p.y);
+        glEnd();
+    }
+
+    LIB_API void DrawPoints(const std::vector<Point>& v, float pointSize, const Color4f& color)
+    {
+        glPointSize(pointSize);
+        glColor4fv(color.data());
+        glBegin(GL_POINTS);
+        for (const auto& p : v)
+            glVertex2f(p.x, p.y);
+        glEnd();
+    }
+
+    LIB_API void DrawLines(const std::vector<Point>& vec, const Color4f& color)
+    {
+        glColor4fv(color.data());
+        glBegin(GL_LINE_LOOP);
+        for (const auto& v : vec)
+            glVertex2f(v.x, v.y);
         glEnd();
     }
 

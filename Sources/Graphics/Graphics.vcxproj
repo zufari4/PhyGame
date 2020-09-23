@@ -103,6 +103,7 @@ copy /Y $(SolutionDir)Libs\SDL2\lib\SDL2.dll $(SolutionDir)Output\$(Configuratio
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Color4f.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="GraphicsSettings.h" />
   </ItemGroup>

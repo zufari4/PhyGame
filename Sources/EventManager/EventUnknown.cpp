@@ -5,7 +5,7 @@ namespace EventManager
 {
 
     EventUnknow::EventUnknow()
-        : IEvent(EventType::Undefined, "UNKNOWN", false)
+        : IEvent(EventType::Undefined, false)
     {
 
     }

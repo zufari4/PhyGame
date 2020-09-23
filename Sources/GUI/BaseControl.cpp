@@ -131,4 +131,14 @@ namespace GUI
         font_ = font;
     }
 
+    void BaseControl::SetFileActivate(const std::string& fileName)
+    {
+        fileActivate_ = fileName;
+    }
+
+    const std::string& BaseControl::GetFileActivate() const
+    {
+        return fileActivate_;
+    }
+
 }

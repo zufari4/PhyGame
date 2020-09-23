@@ -1,6 +1,9 @@
 #pragma once
 
 #include <string>
+#include <vector>
+#include "Point.h"
+#include "Color4f.h"
 
 #define LIB_API __declspec(dllexport)
 struct SDL_Window;
@@ -16,5 +19,8 @@ namespace Graphics {
     LIB_API int GetFrameWidth();
     LIB_API int GetFrameHeight();
     LIB_API void SetCamera2D(float centerX, float centerY);
-    LIB_API void DrawPoint(float x, float y);
+    LIB_API void DrawPoint(const Point& p, float pointSize, const Color4f& color);
+    LIB_API void DrawPoints(const std::vector<Point>& v, float pointSize, const Color4f& color);
+    LIB_API void DrawLines(const std::vector<Point>& v, const Color4f& color);
+
 }

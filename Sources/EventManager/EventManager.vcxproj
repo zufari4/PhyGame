@@ -59,7 +59,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Libs\SDL2\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Libs\SDL2\include;$(SolutionDir)Sources\GUI;</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -83,7 +83,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Libs\SDL2\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Libs\SDL2\include;$(SolutionDir)Sources\GUI;</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -101,18 +101,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
-    <ClCompile Include="EventButtonClick.cpp" />
-    <ClCompile Include="EventFactory.cpp" />
     <ClCompile Include="EventManager.cpp" />
+    <ClCompile Include="EventMouseDown.cpp" />
+    <ClCompile Include="EventMouseMove.cpp" />
     <ClCompile Include="EventMouseUp.cpp" />
     <ClCompile Include="EventQuit.cpp" />
     <ClCompile Include="EventUnknown.cpp" />
     <ClCompile Include="EventWindowResize.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="EventButtonClick.h" />
-    <ClInclude Include="EventFactory.h" />
     <ClInclude Include="EventManager.h" />
+    <ClInclude Include="EventMouseDown.h" />
+    <ClInclude Include="EventMouseMove.h" />
     <ClInclude Include="EventMouseUp.h" />
     <ClInclude Include="EventQuit.h" />
     <ClInclude Include="EventType.h" />

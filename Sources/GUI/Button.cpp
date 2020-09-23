@@ -1,7 +1,7 @@
 #include "Button.h"
 #include "ControlTypes.h"
 #include "EventManager.h"
-#include "EventType.h"
+#include "EventButtonClick.h"
 
 namespace GUI
 {
@@ -56,7 +56,10 @@ namespace GUI
 
     void Button::ClickHandler() const
     {
-        EventManager::PushEvent(EventManager::EventType::ButtonClick, name_);
+        auto btnEvent = std::make_unique<EventManager::EventButtonClick>();
+        btnEvent->SetSender(name_);
+        btnEvent->SetFileActive(fileActivate_);
+        EventManager::PushEvent(std::move(btnEvent));
     }
 
 }

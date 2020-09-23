@@ -1,4 +1,5 @@
 #include "FontManager.h"
+#include "Utils.h"
 #include "imgui_freetype.h"
 #include <stdexcept>
 #include <vector>
@@ -18,6 +19,9 @@ namespace GUI
         ImFont* CreateFont(const std::string& fileName, float size, unsigned hintType)
         {
             if (fileName.empty()) return nullptr;
+            if (!Utils::FileIsExists(fileName)) {
+                throw std::runtime_error("Font file '" + fileName + "' is not found");
+            }
             for (const auto& it : fonts_) {
                 if (it.fileName == fileName && it.size == size && it.hintType == hintType) {
                     return it.font;

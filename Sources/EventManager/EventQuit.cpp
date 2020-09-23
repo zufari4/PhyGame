@@ -5,7 +5,7 @@ namespace EventManager
 {
 
     EventQuit::EventQuit():
-        IEvent(EventType::Quit, "", true)
+        IEvent(EventType::Quit, true)
     {
 
     }

@@ -4,7 +4,7 @@
 namespace EventManager
 {
     EventMouseUp::EventMouseUp()
-        : IEvent(EventType::MouseUp, "", true)
+        : IEvent(EventType::MouseUp, true)
     {
 
     }

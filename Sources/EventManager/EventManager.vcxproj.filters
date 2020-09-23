@@ -18,16 +18,10 @@
     <ClCompile Include="dllmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EventFactory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="EventManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EventQuit.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EventButtonClick.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EventWindowResize.cpp">
@@ -37,6 +31,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EventMouseUp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EventMouseDown.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EventMouseMove.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -50,16 +50,10 @@
     <ClInclude Include="EventType.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="EventFactory.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="EventManager.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="EventQuit.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EventButtonClick.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="EventWindowResize.h">
@@ -69,6 +63,12 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="EventMouseUp.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EventMouseDown.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EventMouseMove.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

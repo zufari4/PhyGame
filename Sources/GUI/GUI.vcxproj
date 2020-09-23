@@ -107,6 +107,7 @@
     <ClCompile Include="ControlFactory.cpp" />
     <ClCompile Include="ControlTypes.cpp" />
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="EventButtonClick.cpp" />
     <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="GUI.cpp" />
     <ClCompile Include="GUISettings.cpp" />
@@ -119,6 +120,7 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="ControlFactory.h" />
     <ClInclude Include="ControlTypes.h" />
+    <ClInclude Include="EventButtonClick.h" />
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="GUI.h" />
     <ClInclude Include="GUISettings.h" />

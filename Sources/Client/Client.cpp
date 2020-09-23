@@ -1,12 +1,13 @@
 #include "Graphics.h"
 #include "Client.h"
-#include "EventFactory.h"
 #include "EventManager.h"
+#include "EventType.h"
 #include "GUI.h"
 #include "Utils.h"
 #include "ClientSettings.h"
 #include "ErrorWindow.h"
 #include "EventMouseUp.h"
+#include "EventButtonClick.h"
 
 Client::Client()
     : state_(GameState::Undefined)
@@ -22,8 +23,8 @@ bool Client::Init()
         const auto configFileName = GetConfigFileName();
         settingsManager_ = std::make_unique<SettingsManager>(configFileName, GetDefaultClientSettings(), true);
         Graphics::Init(configFileName);
-        GUI::Init(Graphics::GetCurrentWindow(), Graphics::GetOpenGLContext(), configFileName);
-        GUI::LoadGUI(GetDataDir() + "/" + settingsManager_->GetPropertyAsString(ClientSetting::GUIMainMenuFile));
+        GUI::Init(Graphics::GetCurrentWindow(), Graphics::GetOpenGLContext(), configFileName, GetDataDir());
+        GUI::LoadGUI(GetDataDir() + "/" + settingsManager_->GetPropertyAsString(ClientSetting::GUIMainFile));
         EventManager::PushObserver(this, EventManager::EventType::Quit);
         EventManager::PushObserver(this, EventManager::EventType::ButtonClick);
         EventManager::PushObserver(this, EventManager::EventType::MouseUp);
@@ -73,26 +74,17 @@ void Client::EventHandling(const EventManager::IEvent& event)
             workFlag_ = false;
             break;
         case EventManager::EventType::ButtonClick:
-            if (event.GetSender() == "btnExit") {
+            const EventManager::ButtonClickParam* params = (const EventManager::ButtonClickParam*)event.GetParams();
+            if (params->sender == "btnExit") {
                 workFlag_ = false;
             }
-            if (event.GetSender() == "setShape") {
+            else if (params->sender == "createMechanizm") {
+                state_ = GameState::SelectToolForMechanizm;
+            }
+            else if (params->sender == "setShape") {
                 state_ = GameState::SetShape;
                 shapeConstructor_ = std::make_unique<ShapeConstructor>();
 
-            }
-            if (event.GetSender() == "createMechanizm") {
-                GUI::LoadGUI(GetDataDir() + "/" + settingsManager_->GetPropertyAsString(ClientSetting::GUICreateMechanizmFile));
-                state_ = GameState::SelectToolForMechanizm;
-            }
-            break;
-
-        case EventManager::EventType::MouseUp:
-            if (state_ == GameState::SetShape) {
-                const EventManager::MouseUpParams* params = static_cast<const EventManager::MouseUpParams*>(event.GetParams());
-                if (params->button == 0) {
-                    shapeConstructor_->AddPoint((float)params->x, (float)params->y);
-                }
             }
             break;
         }
