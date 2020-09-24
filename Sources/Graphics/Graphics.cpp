@@ -149,22 +149,22 @@ namespace Graphics
         glEnd();
     }
 
-    LIB_API float win2worldX(float x)
+    LIB_API float win2worldX(int x)
     {
         return camera_.WindowCoordToWorldX(x);
     }
 
-    LIB_API float win2worldY(float y)
+    LIB_API float win2worldY(int y)
     {
         return camera_.WindowCoordToWorldY(y);
     }
 
-    LIB_API float world2winX(float x)
+    LIB_API int world2winX(float x)
     {
         return camera_.WorldCoordToWindowX(x);
     }
 
-    LIB_API float world2winY(float y)
+    LIB_API int world2winY(float y)
     {
         return camera_.WorldCoordToWindowY(y);
     }

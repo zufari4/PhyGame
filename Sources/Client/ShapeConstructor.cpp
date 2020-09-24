@@ -65,8 +65,8 @@ void ShapeConstructor::EventHandling(const EventManager::BaseEvent& event)
         if (dragPoint_ != -1) {
             std::lock_guard<std::mutex> g(pointsMutex_);
             auto& p = points_[dragPoint_];
-            dragDeltaX_ = Graphics::world2winX(p.x) - (float)ev.x;
-            dragDeltaY_ = Graphics::world2winY(p.y) - (float)ev.y;
+            dragDeltaX_ = Graphics::world2winX(p.x) - ev.x;
+            dragDeltaY_ = Graphics::world2winY(p.y) - ev.y;
         }
     } break;
     case EventManager::EventType::MouseUp: {
@@ -74,7 +74,7 @@ void ShapeConstructor::EventHandling(const EventManager::BaseEvent& event)
         if (GUI::CursorAtWidget(ev.x, ev.y)) break;
         if (dragPoint_ == -1) {
             if (ev.button == 1) {
-                AddPoint(Graphics::win2worldX((float)ev.x), Graphics::win2worldY((float)ev.y));
+                AddPoint(Graphics::win2worldX(ev.x), Graphics::win2worldY(ev.y));
             }
         }
         else dragPoint_ = -1;
@@ -86,7 +86,7 @@ void ShapeConstructor::EventHandling(const EventManager::BaseEvent& event)
             std::lock_guard<std::mutex> g(pointsMutex_);
             hoverPoint_ = -1;
             for (size_t i = 0; i < points_.size(); ++i) {
-                if (CursorInPoint(Graphics::win2worldX((float)ev.x), Graphics::win2worldY((float)ev.y), points_[i])) {
+                if (CursorInPoint(Graphics::win2worldX(ev.x), Graphics::win2worldY(ev.y), points_[i])) {
                     hoverPoint_ = i;
                     break;
                 }
@@ -95,8 +95,8 @@ void ShapeConstructor::EventHandling(const EventManager::BaseEvent& event)
         else {
             std::lock_guard<std::mutex> g(pointsMutex_);
             auto& p = points_[dragPoint_];
-            p.x = Graphics::win2worldX((float)ev.x + dragDeltaX_);
-            p.y = Graphics::win2worldY((float)ev.y + dragDeltaY_);
+            p.x = Graphics::win2worldX(ev.x + dragDeltaX_);
+            p.y = Graphics::win2worldY(ev.y + dragDeltaY_);
         }
     } break;
     }

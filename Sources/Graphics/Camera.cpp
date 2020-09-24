@@ -26,29 +26,29 @@ namespace Graphics
         glLoadIdentity();
         centerX_ = centerX;
         centerY_ = centerY;
-        frameWidth_ = (float)frameWidth;
-        frameHeight_ = (float)frameHeight;
+        frameWidth_ = frameWidth;
+        frameHeight_ = frameHeight;
         is2D_ = true;
     }
 
-    float Camera::WindowCoordToWorldX(float x) const
+    float Camera::WindowCoordToWorldX(int x) const
     {
-        return x - frameWidth_ * 0.5f;
+        return (float)x - (float)frameWidth_ * 0.5f;
     }
 
-    float Camera::WindowCoordToWorldY(float y) const
+    float Camera::WindowCoordToWorldY(int y) const
     {
-        return y - frameHeight_ * 0.5f;
+        return (float)y - (float)frameHeight_ * 0.5f;
     }
 
-    float Camera::WorldCoordToWindowX(float x) const
+    int Camera::WorldCoordToWindowX(float x) const
     {
-        return x + frameWidth_ * 0.5f;
+        return (int)(x + frameWidth_ * 0.5f);
     }
 
-    float Camera::WorldCoordToWindowY(float y) const
+    int Camera::WorldCoordToWindowY(float y) const
     {
-        return y + frameHeight_ * 0.5f;
+        return (int)(y + frameHeight_ * 0.5f);
     }
 
     void Camera::EventHandling(const EventManager::BaseEvent& event)

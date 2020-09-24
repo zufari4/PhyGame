@@ -9,16 +9,16 @@ namespace Graphics
     public:
         Camera();
         void set2D(float centerX, float centerY, int frameWidth, int frameHeight);
-        float WindowCoordToWorldX(float x) const;
-        float WindowCoordToWorldY(float y) const;
-        float WorldCoordToWindowX(float x) const;
-        float WorldCoordToWindowY(float y) const;
+        float WindowCoordToWorldX(int x) const;
+        float WindowCoordToWorldY(int y) const;
+        int WorldCoordToWindowX(float x) const;
+        int WorldCoordToWindowY(float y) const;
         void EventHandling(const EventManager::BaseEvent& event) override;
     private:
         float centerX_;
         float centerY_;
-        float frameWidth_;
-        float frameHeight_;
+        int frameWidth_;
+        int frameHeight_;
         bool  is2D_;
     };
 }

@@ -28,6 +28,6 @@ private:
     Graphics::Color4f lineColor_;
     size_t hoverPoint_;
     size_t dragPoint_;
-    float dragDeltaX_;
-    float dragDeltaY_;
+    int dragDeltaX_;
+    int dragDeltaY_;
 };
