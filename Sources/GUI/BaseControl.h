@@ -41,6 +41,7 @@ namespace GUI
         virtual void SetFont(ImFont* font);
         virtual void SetFileActivate(const std::string& fileName);
         virtual const std::string& GetFileActivate() const;
+        virtual bool CursorAtWidget(int x, int y) const;
     protected:
         std::string name_;
         ControlType type_;

@@ -18,6 +18,7 @@ namespace GUI
         void EventHandling(const EventManager::BaseEvent& event) override;
         void LoadGUI(const std::string& jsonFile);
         const std::string& GetResourceDirectory() const;
+        bool CursorAtWidget(int x, int y) const;
     private:
         SDL_Window* window_ = nullptr;
         SettingsManager settingsManager_;

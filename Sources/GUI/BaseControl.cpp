@@ -141,4 +141,9 @@ namespace GUI
         return fileActivate_;
     }
 
+    bool BaseControl::CursorAtWidget(int x, int y) const
+    {
+        return x >= pos_.x && x <= pos_.x + size_.x && y >= pos_.y && y <= pos_.y + size_.y;
+    }
+
 }

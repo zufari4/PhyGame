@@ -11,5 +11,5 @@ namespace GUI
     LIB_API void Free();
     LIB_API void ProcessFrame();
     LIB_API void LoadGUI(const std::string& jsonFile);
-    const std::string& GetResourceDirectory();
+    LIB_API bool CursorAtWidget(int x, int y);
 }

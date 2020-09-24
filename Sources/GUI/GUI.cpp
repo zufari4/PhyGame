@@ -25,6 +25,11 @@ namespace GUI
         instance->LoadGUI(jsonFile);
     }
 
+    LIB_API bool CursorAtWidget(int x, int y)
+    {
+        return instance->CursorAtWidget(x, y);
+    }
+
     const std::string& GetResourceDirectory()
     {
         return instance->GetResourceDirectory();

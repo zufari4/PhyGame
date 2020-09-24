@@ -4,6 +4,7 @@
 #include "EventMouseDown.h"
 #include "EventMouseUp.h"
 #include "EventMouseMove.h"
+#include "GUI.h"
 
 ShapeConstructor::ShapeConstructor()
     : pointSize_(18.0f)
@@ -58,18 +59,20 @@ void ShapeConstructor::EventHandling(const EventManager::BaseEvent& event)
     switch (event.type)
     {
     case EventManager::EventType::MouseDown: {
+        const EventManager::EventMouseDown& ev = (const EventManager::EventMouseDown&)event;
+        if (GUI::CursorAtWidget(ev.x, ev.y)) break;
         dragPoint_ = hoverPoint_;
         if (dragPoint_ != -1) {
-            const EventManager::EventMouseDown& ev = (const EventManager::EventMouseDown&)event;
             std::lock_guard<std::mutex> g(pointsMutex_);
             auto& p = points_[dragPoint_];
-            dragDeltaX_ = Graphics::world2winX(p.x)  - (float)ev.x;
-            dragDeltaY_ = Graphics::world2winY(p.y)  - (float)ev.y;
+            dragDeltaX_ = Graphics::world2winX(p.x) - (float)ev.x;
+            dragDeltaY_ = Graphics::world2winY(p.y) - (float)ev.y;
         }
     } break;
     case EventManager::EventType::MouseUp: {
+        const EventManager::EventMouseUp& ev = (const EventManager::EventMouseUp&)event;
+        if (GUI::CursorAtWidget(ev.x, ev.y)) break;
         if (dragPoint_ == -1) {
-            const EventManager::EventMouseUp& ev = (const EventManager::EventMouseUp&)event;
             if (ev.button == 1) {
                 AddPoint(Graphics::win2worldX((float)ev.x), Graphics::win2worldY((float)ev.y));
             }
@@ -77,7 +80,8 @@ void ShapeConstructor::EventHandling(const EventManager::BaseEvent& event)
         else dragPoint_ = -1;
     } break;
     case EventManager::EventType::MouseMove: {
-        const EventManager::EventMouseMove& ev = (const EventManager::EventMouseMove&)event;
+        const EventManager::EventMouseUp& ev = (const EventManager::EventMouseUp&)event;
+        if (GUI::CursorAtWidget(ev.x, ev.y)) break;
         if (dragPoint_ == -1) {
             std::lock_guard<std::mutex> g(pointsMutex_);
             hoverPoint_ = -1;

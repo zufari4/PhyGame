@@ -124,4 +124,12 @@ namespace GUI
         return resourceDirectory_;
     }
 
+    bool Instance::CursorAtWidget(int x, int y) const
+    {
+        for (const auto& it : controls_) {
+            if (it->CursorAtWidget(x, y)) return true;
+        }
+        return false;
+    }
+
 }

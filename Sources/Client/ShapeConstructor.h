@@ -11,10 +11,10 @@ class ShapeConstructor : public EventManager::IEventObserver
 public:
     ShapeConstructor();
     ~ShapeConstructor();
-    void AddPoint(float x, float y);
     void Draw();
     void EventHandling(const EventManager::BaseEvent& event) override;
 private:
+    void AddPoint(float x, float y);
     void DrawPoints();
     void DrawShape();
     bool CursorInPoint(float cursorX, float cursorY, const Point& point) const;
