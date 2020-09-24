@@ -50,5 +50,20 @@
     <ClInclude Include="EventTypes.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="SystemEvent.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EventMouseWheel.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EventTextInput.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EventKeyDown.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EventKeyUp.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,12 +1,12 @@
 #pragma once
 
-#include "BaseEvent.h"
+#include "SystemEvent.h"
 
 namespace EventManager
 {
-    struct EventMouseMove : BaseEvent
+    struct EventMouseMove : SystemEvent
     {
-        EventMouseMove() : BaseEvent(EventType::MouseMove) {}
+        EventMouseMove() : SystemEvent(EventType::MouseMove) {}
         int x = 0;
         int y = 0;
     };

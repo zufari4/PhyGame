@@ -12,19 +12,19 @@ namespace GUI
 
     void Header::SetText(const std::string& text)
     {
-        text_ = text;
+        strcpy_s(text_, text.c_str());
     }
 
-    void Header::Render() const
+    void Header::Render()
     {
         ImGui::SetCursorPos(pos_);
         ImGuiStyle& style = ImGui::GetStyle();
         const auto prevRounding = style.FrameRounding;
         style.FrameRounding = rounding_;
         ImGui::PushFont(font_);
-        ImGui::PushItemWidth(size_.y);
+        ImGui::PushItemWidth(size_.x);
 
-        ImGui::Text(text_.c_str());
+        ImGui::InputText("", text_, sizeof(text_), ImGuiInputTextFlags_ReadOnly | ImGuiInputTextFlags_NoHorizontalScroll | ImGuiInputTextFlags_NoUndoRedo);
 
         style.FrameRounding = prevRounding;
         ImGui::PopItemWidth();

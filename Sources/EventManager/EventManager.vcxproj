@@ -104,15 +104,20 @@
     <ClCompile Include="EventManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="EventKeyDown.h" />
+    <ClInclude Include="EventKeyUp.h" />
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="EventMouseDown.h" />
     <ClInclude Include="EventMouseMove.h" />
     <ClInclude Include="EventMouseUp.h" />
+    <ClInclude Include="EventMouseWheel.h" />
     <ClInclude Include="EventQuit.h" />
+    <ClInclude Include="EventTextInput.h" />
     <ClInclude Include="EventTypes.h" />
     <ClInclude Include="EventWindowResize.h" />
     <ClInclude Include="BaseEvent.h" />
     <ClInclude Include="IEventObserver.h" />
+    <ClInclude Include="SystemEvent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

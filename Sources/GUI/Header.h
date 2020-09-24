@@ -9,8 +9,8 @@ namespace GUI
     public:
         Header(const std::string& name, BaseControl* parent = nullptr);
         void SetText(const std::string& text);
-        void Render() const override;
+        void Render() override;
     private:
-        std::string text_;
+        char text_[1024];
     };
 }

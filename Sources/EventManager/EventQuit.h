@@ -1,11 +1,11 @@
 #pragma once
 
-#include "BaseEvent.h"
+#include "SystemEvent.h"
 
 namespace EventManager
 {
-    struct EventQuit : BaseEvent
+    struct EventQuit : SystemEvent
     {
-        EventQuit() : BaseEvent(EventType::Quit) {}
+        EventQuit() : SystemEvent(EventType::Quit) {}
     };
 }

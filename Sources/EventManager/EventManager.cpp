@@ -6,6 +6,10 @@
 #include "EventMouseUp.h"
 #include "EventMouseDown.h"
 #include "EventMouseMove.h"
+#include "EventMouseWheel.h"
+#include "EventTextInput.h"
+#include "EventKeyDown.h"
+#include "EventKeyUp.h"
 #include "SDL.h"
 #include <map>
 #include <list>
@@ -32,10 +36,10 @@ namespace EventManager {
         while (SDL_PollEvent(&event))
         {
             if (eventsObservers_.find(GetEventType(event)) == eventsObservers_.end()) continue;
-            const auto& newEvent = GetSystemEvent(event);
+            const auto& sysEvent = GetSystemEvent(event);
 
-            for (auto observer : eventsObservers_[newEvent.type]) {
-                observer->EventHandling(newEvent);
+            for (auto observer : eventsObservers_[sysEvent.type]) {
+                observer->EventHandling(sysEvent);
             }
         }
 
@@ -94,36 +98,65 @@ namespace EventManager {
 
     const BaseEvent& GetSystemEvent(const SDL_Event& srcEvent)
     {
-        static BaseEvent eventUnknown_(EventType::Undefined);
+        static SystemEvent eventUnknown_(EventType::Undefined);
         static EventQuit eventQuit_;
         static EventWindowResize eventWindowResize_;
         static EventMouseUp eventMouseUp_;
         static EventMouseDown eventMouseDown_;
         static EventMouseMove eventMouseMove_;
+        static EventMouseWheel eventMouseWheel_;
+        static EventTextInput eventTextInput_;
+        static EventKeyDown eventKeyDown_;
+        static EventKeyUp eventKeyUp_;
 
         switch (srcEvent.type) {
         case SDL_QUIT: {
+            eventQuit_.sysEvent = &srcEvent;
             return eventQuit_;
         } break;
         case SDL_MOUSEMOTION: {
+            eventMouseMove_.sysEvent = &srcEvent;
             eventMouseMove_.x = srcEvent.button.x;
             eventMouseMove_.y = srcEvent.button.y;
             return eventMouseMove_;
         } break;
         case SDL_MOUSEBUTTONDOWN: {
+            eventMouseDown_.sysEvent = &srcEvent;
             eventMouseDown_.x = srcEvent.button.x;
             eventMouseDown_.y = srcEvent.button.y;
             eventMouseDown_.button = srcEvent.button.button;
             return eventMouseDown_;
         } break;
         case SDL_MOUSEBUTTONUP: {
+            eventMouseUp_.sysEvent = &srcEvent;
             eventMouseUp_.x = srcEvent.button.x;
             eventMouseUp_.y = srcEvent.button.y;
             eventMouseUp_.button = srcEvent.button.button;
             return eventMouseUp_;
         } break;
+        case SDL_MOUSEWHEEL: {
+            eventMouseWheel_.sysEvent = &srcEvent;
+            eventMouseWheel_.delta = srcEvent.wheel.x;
+            return eventMouseWheel_;
+        } break;
+        case SDL_TEXTEDITING: {
+            eventTextInput_.sysEvent = &srcEvent;
+            eventTextInput_.text = srcEvent.text.text;
+            return eventTextInput_;
+        } break;
+        case SDL_KEYDOWN: {
+            eventKeyDown_.sysEvent = &srcEvent;
+            eventKeyDown_.key = srcEvent.key.keysym.scancode;
+            return eventKeyDown_;
+        } break;
+        case SDL_KEYUP: {
+            eventKeyUp_.sysEvent = &srcEvent;
+            eventKeyUp_.key = srcEvent.key.keysym.scancode;
+            return eventKeyUp_;
+        } break;
         case SDL_WINDOWEVENT: {
             if (srcEvent.window.event == SDL_WINDOWEVENT_RESIZED) {
+                eventWindowResize_.sysEvent = &srcEvent;
                 eventWindowResize_.width = (int)srcEvent.window.data1;
                 eventWindowResize_.height = (int)srcEvent.window.data2;
                 return eventWindowResize_;
@@ -143,6 +176,10 @@ namespace EventManager {
         case SDL_MOUSEMOTION: return EventType::MouseMove;
         case SDL_MOUSEBUTTONDOWN: return EventType::MouseDown;
         case SDL_MOUSEBUTTONUP: return EventType::MouseUp;
+        case SDL_MOUSEWHEEL: return EventType::MouseWheel;
+        case SDL_TEXTINPUT: return EventType::TextInput;
+        case SDL_KEYDOWN: return EventType::KeyDown;
+        case SDL_KEYUP: return EventType::KeyUp;
         case SDL_WINDOWEVENT:
             if (srcEvent.window.event == SDL_WINDOWEVENT_RESIZED) return EventType::WindowResize;
             else return EventType::Undefined;

@@ -9,7 +9,11 @@ namespace EventManager
         MouseMove,
         MouseDown,
         MouseUp,
+        MouseWheel,
         WindowResize,
-        ButtonClick
+        TextInput,
+        KeyDown,
+        KeyUp,
+        ButtonClick,
     };
 }

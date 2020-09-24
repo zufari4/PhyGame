@@ -1,13 +1,13 @@
 #pragma once
 
 
-#include "BaseEvent.h"
+#include "SystemEvent.h"
 
 namespace EventManager
 {
-    struct EventWindowResize : BaseEvent
+    struct EventWindowResize : SystemEvent
     {
-        EventWindowResize() : BaseEvent(EventType::WindowResize) {}
+        EventWindowResize() : SystemEvent(EventType::WindowResize) {}
         int width = 0;
         int height = 0;
     };

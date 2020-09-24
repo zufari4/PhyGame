@@ -22,7 +22,7 @@ namespace GUI
         virtual const std::string& GetName() const;
         virtual void AddControl(std::unique_ptr<BaseControl> ctrl);
         virtual void SetPos(int x, int y, int width, int height);
-        virtual void Render() const;
+        virtual void Render();
         virtual void SetVisible(bool val);
         virtual bool IsVisible() const;
         virtual void SetAlign(AlignType val);

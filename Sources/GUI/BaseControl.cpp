@@ -41,7 +41,7 @@ namespace GUI
         pos_.x = (float)x; pos_.y = (float)y; size_.y = (float)height; size_.x = (float)width;
     }
 
-    void BaseControl::Render() const
+    void BaseControl::Render()
     {
     }
 

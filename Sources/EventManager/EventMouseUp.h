@@ -1,12 +1,12 @@
 #pragma once
 
-#include "BaseEvent.h"
+#include "SystemEvent.h"
 
 namespace EventManager
 {
-    struct EventMouseUp : BaseEvent
+    struct EventMouseUp : SystemEvent
     {
-        EventMouseUp() : BaseEvent(EventType::MouseUp) {}
+        EventMouseUp() : SystemEvent(EventType::MouseUp) {}
         int x = 0;
         int y = 0;
         int button = 0;

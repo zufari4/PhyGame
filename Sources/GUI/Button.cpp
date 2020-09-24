@@ -16,7 +16,7 @@ namespace GUI
         text_ = text;
     }
 
-    void Button::Render() const
+    void Button::Render()
     {
         ImGui::SetCursorPos(pos_);
         ImGui::PushStyleColor(ImGuiCol_Text, textColor_);

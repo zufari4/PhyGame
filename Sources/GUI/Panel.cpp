@@ -10,7 +10,7 @@ namespace GUI
 
     }
 
-    void Panel::Render() const
+    void Panel::Render()
     {
         ImGui::SetNextWindowPos(pos_, 0, zeroVec2);
         ImGui::PushStyleColor(ImGuiCol_ChildBg, bgColor_);

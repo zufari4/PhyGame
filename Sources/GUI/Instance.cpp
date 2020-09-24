@@ -1,6 +1,7 @@
 #include "Instance.h"
 #include "SettingsManager.h"
 #include "EventManager.h"
+#include "SystemEvent.h"
 #include "GUISettings.h"
 #include "ControlFactory.h"
 #include "Utils.h"
@@ -29,6 +30,11 @@ namespace GUI
         ImGui_ImplOpenGL2_Init();
         EventManager::PushObserver(this, EventManager::EventType::WindowResize);
         EventManager::PushObserver(this, EventManager::EventType::ButtonClick);
+        EventManager::PushObserver(this, EventManager::EventType::MouseDown);
+        EventManager::PushObserver(this, EventManager::EventType::MouseWheel);
+        EventManager::PushObserver(this, EventManager::EventType::TextInput);
+        EventManager::PushObserver(this, EventManager::EventType::KeyDown);
+        EventManager::PushObserver(this, EventManager::EventType::KeyUp);
     }
 
     Instance::~Instance()
@@ -81,9 +87,9 @@ namespace GUI
 
     void Instance::EventHandling(const EventManager::BaseEvent& event)
     {
-        //if (event.GetType() == EventManager::EventType::WindowResize) {
-        //    ImGui_ImplSDL2_ProcessEvent();
-        //}
+        if (event.isSystemEvent) {
+            ImGui_ImplSDL2_ProcessEvent(((const EventManager::SystemEvent&)event).sysEvent);
+        }
         if (event.type == EventManager::EventType::WindowResize) {
             int winWidth;
             int winHeight;

@@ -8,7 +8,7 @@ namespace GUI
     {
     public:
         Panel(const std::string& name, BaseControl* parent = nullptr);
-        void Render() const override;
+        void Render() override;
         void SetBgColor(const ImVec4& color);
     private:
         ImVec4 bgColor_;
