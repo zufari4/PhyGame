@@ -1,6 +1,6 @@
 #pragma once
 #include "IEventObserver.h"
-#include "IEvent.h"
+#include "BaseEvent.h"
 #include "SettingsManager.h"
 #include "GameState.h"
 #include "ShapeConstructor.h"
@@ -15,7 +15,7 @@ public:
     bool Init();
     void Run();
     void Free();
-    void EventHandling(const EventManager::IEvent& event) override;
+    void EventHandling(const EventManager::BaseEvent& event) override;
 private:
     static std::string GetConfigFileName();
     static std::string GetDataDir();

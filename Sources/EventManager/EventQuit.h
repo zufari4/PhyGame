@@ -1,13 +1,11 @@
 #pragma once
 
-#include "IEvent.h"
+#include "BaseEvent.h"
 
 namespace EventManager
 {
-    class EventQuit : public IEvent
+    struct EventQuit : BaseEvent
     {
-    public:
-        EventQuit();
-        const IEventParams* GetParams() const override { return nullptr; }
+        EventQuit() : BaseEvent(EventType::Quit) {}
     };
 }

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "IEvent.h"
+#include "BaseEvent.h"
 
 namespace EventManager
 {
@@ -8,6 +8,6 @@ namespace EventManager
     {
     public:
         virtual ~IEventObserver() {};
-        virtual void EventHandling(const IEvent& event) = 0;
+        virtual void EventHandling(const BaseEvent& event) = 0;
     };
 }

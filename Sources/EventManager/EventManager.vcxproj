@@ -102,12 +102,6 @@
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="EventManager.cpp" />
-    <ClCompile Include="EventMouseDown.cpp" />
-    <ClCompile Include="EventMouseMove.cpp" />
-    <ClCompile Include="EventMouseUp.cpp" />
-    <ClCompile Include="EventQuit.cpp" />
-    <ClCompile Include="EventUnknown.cpp" />
-    <ClCompile Include="EventWindowResize.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventManager.h" />
@@ -115,10 +109,9 @@
     <ClInclude Include="EventMouseMove.h" />
     <ClInclude Include="EventMouseUp.h" />
     <ClInclude Include="EventQuit.h" />
-    <ClInclude Include="EventType.h" />
-    <ClInclude Include="EventUnknown.h" />
+    <ClInclude Include="EventTypes.h" />
     <ClInclude Include="EventWindowResize.h" />
-    <ClInclude Include="IEvent.h" />
+    <ClInclude Include="BaseEvent.h" />
     <ClInclude Include="IEventObserver.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

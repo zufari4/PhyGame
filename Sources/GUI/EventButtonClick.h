@@ -1,22 +1,13 @@
 #pragma once
 
-#include "IEvent.h"
+#include "BaseEvent.h"
 
 namespace EventManager
 {
-    struct ButtonClickParam: IEventParams
+    struct EventButtonClick : BaseEvent
     {
+        EventButtonClick() : BaseEvent(EventType::ButtonClick) {};
         std::string sender;
         std::string fileActive;
-    };
-    class EventButtonClick : public IEvent
-    {
-    public:
-        EventButtonClick();
-        const IEventParams* GetParams() const override { return &params; }
-        void SetFileActive(const std::string& val);
-        void SetSender(const std::string& val);
-    private:
-        ButtonClickParam params;
     };
 }

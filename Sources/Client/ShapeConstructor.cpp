@@ -1,13 +1,12 @@
 #include "ShapeConstructor.h"
 #include "Graphics.h"
 #include "EventManager.h"
-#include "EventType.h"
 #include "EventMouseDown.h"
 #include "EventMouseUp.h"
 #include "EventMouseMove.h"
 
 ShapeConstructor::ShapeConstructor()
-    : pointSize_(30.0f)
+    : pointSize_(18.0f)
     , pointColorNormal_ { 0.5f, 0.5f, 0.5f, 0.5f }
     , pointColorHover_ { 0.5f, 0.5f, 0.5f, 1.0f }
     , pointColorSelected_ { 0.3f, 0.3f, 0.3f, 1.0f }
@@ -54,36 +53,36 @@ void ShapeConstructor::DrawShape()
     if (points_.size() > 1) Graphics::DrawLines(points_, lineColor_);
 }
 
-void ShapeConstructor::EventHandling(const EventManager::IEvent& event)
+void ShapeConstructor::EventHandling(const EventManager::BaseEvent& event)
 {
-    switch (event.GetType())
+    switch (event.type)
     {
     case EventManager::EventType::MouseDown: {
         dragPoint_ = hoverPoint_;
         if (dragPoint_ != -1) {
-            const EventManager::MouseDownParams* params = (const EventManager::MouseDownParams*)event.GetParams();
+            const EventManager::EventMouseDown& ev = (const EventManager::EventMouseDown&)event;
             std::lock_guard<std::mutex> g(pointsMutex_);
             auto& p = points_[dragPoint_];
-            dragDeltaX_ = Graphics::world2winX(p.x)  - (float)params->x;
-            dragDeltaY_ = Graphics::world2winY(p.y)  - (float)params->y;
+            dragDeltaX_ = Graphics::world2winX(p.x)  - (float)ev.x;
+            dragDeltaY_ = Graphics::world2winY(p.y)  - (float)ev.y;
         }
     } break;
     case EventManager::EventType::MouseUp: {
         if (dragPoint_ == -1) {
-            const EventManager::MouseUpParams* params = (const EventManager::MouseUpParams*)event.GetParams();
-            if (params->button == 1) {
-                AddPoint(Graphics::win2worldX((float)params->x), Graphics::win2worldY((float)params->y));
+            const EventManager::EventMouseUp& ev = (const EventManager::EventMouseUp&)event;
+            if (ev.button == 1) {
+                AddPoint(Graphics::win2worldX((float)ev.x), Graphics::win2worldY((float)ev.y));
             }
         }
         else dragPoint_ = -1;
     } break;
     case EventManager::EventType::MouseMove: {
-        const EventManager::MouseMoveParams* params = (const EventManager::MouseMoveParams*)event.GetParams();
+        const EventManager::EventMouseMove& ev = (const EventManager::EventMouseMove&)event;
         if (dragPoint_ == -1) {
             std::lock_guard<std::mutex> g(pointsMutex_);
             hoverPoint_ = -1;
             for (size_t i = 0; i < points_.size(); ++i) {
-                if (CursorInPoint(Graphics::win2worldX((float)params->x), Graphics::win2worldY((float)params->y), points_[i])) {
+                if (CursorInPoint(Graphics::win2worldX((float)ev.x), Graphics::win2worldY((float)ev.y), points_[i])) {
                     hoverPoint_ = i;
                     break;
                 }
@@ -92,8 +91,8 @@ void ShapeConstructor::EventHandling(const EventManager::IEvent& event)
         else {
             std::lock_guard<std::mutex> g(pointsMutex_);
             auto& p = points_[dragPoint_];
-            p.x = Graphics::win2worldX((float)params->x + dragDeltaX_);
-            p.y = Graphics::win2worldY((float)params->y + dragDeltaY_);
+            p.x = Graphics::win2worldX((float)ev.x + dragDeltaX_);
+            p.y = Graphics::win2worldY((float)ev.y + dragDeltaY_);
         }
     } break;
     }

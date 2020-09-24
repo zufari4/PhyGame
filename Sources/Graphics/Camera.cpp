@@ -1,12 +1,14 @@
 #include "Camera.h"
+#include "EventManager.h"
 #include "SDL_opengl.h"
+#include "Graphics.h"
 
 namespace Graphics
 {
 
     Camera::Camera()
     {
-
+        EventManager::PushObserver(this, EventManager::EventType::WindowResize);
     }
 
     void Camera::set2D(float centerX, float centerY, int frameWidth, int frameHeight)
@@ -26,6 +28,7 @@ namespace Graphics
         centerY_ = centerY;
         frameWidth_ = (float)frameWidth;
         frameHeight_ = (float)frameHeight;
+        is2D_ = true;
     }
 
     float Camera::WindowCoordToWorldX(float x) const
@@ -46,6 +49,18 @@ namespace Graphics
     float Camera::WorldCoordToWindowY(float y) const
     {
         return y + frameHeight_ * 0.5f;
+    }
+
+    void Camera::EventHandling(const EventManager::BaseEvent& event)
+    {
+        switch (event.type)
+        {
+        case EventManager::EventType::WindowResize:
+            if (is2D_) {
+                set2D(centerX_, centerY_, Graphics::GetFrameWidth(), Graphics::GetFrameHeight());
+            }
+            break;
+        }
     }
 
 }

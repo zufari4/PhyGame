@@ -1,10 +1,12 @@
 #include "ControlFactory.h"
 #include "ControlTypes.h"
-#include "Button.h"
-#include "Panel.h"
 #include "Utils.h"
 #include "AlignType.h"
 #include "FontManager.h"
+#include "Button.h"
+#include "Panel.h"
+#include "Header.h"
+
 #include "elements.h"
 
 
@@ -16,19 +18,22 @@ namespace GUI
 
         switch (type)
         {
-        case GUI::ControlType::Window:
+        case ControlType::Window:
             break;
-        case GUI::ControlType::Panel:
+        case ControlType::Panel:
             ctrl = std::make_unique<Panel>(name, parent);
             break;
-        case GUI::ControlType::Button:
+        case ControlType::Button:
             ctrl = std::make_unique<Button>(name, parent);
             break;
-        case GUI::ControlType::Label:
+        case ControlType::Label:
             break;
-        case GUI::ControlType::TextBox:
+        case ControlType::TextBox:
             break;
-        case GUI::ControlType::CheckBox:
+        case ControlType::CheckBox:
+            break;
+        case ControlType::Header:
+            ctrl = std::make_unique<Header>(name, parent);
             break;
         default:
             break;
@@ -150,9 +155,9 @@ namespace GUI
 
         switch (type)
         {
-        case GUI::ControlType::Window:
+        case ControlType::Window:
             break;
-        case GUI::ControlType::Panel: {
+        case ControlType::Panel: {
             paramIt = jsonObj.Find("bgColor");
             if (paramIt == jsonObj.End()) {
                 throw std::runtime_error("Parameter 'bgColor' not found");
@@ -161,7 +166,7 @@ namespace GUI
             const auto c = Utils::strtokf(static_cast<const json::String&>(paramIt->element).Value());
             control->SetBgColor(ImVec4(c[0], c[1], c[2], c[3]));
         } break;
-        case GUI::ControlType::Button: {
+        case ControlType::Button: {
             paramIt = jsonObj.Find("text");
             if (paramIt == jsonObj.End()) {
                 throw std::runtime_error("Parameter 'text' not found");
@@ -197,12 +202,19 @@ namespace GUI
             const auto activeColor = Utils::strtokf(static_cast<const json::String&>(paramIt->element).Value());
             control->SetActiveColor(ImVec4(activeColor[0], activeColor[1], activeColor[2], activeColor[3]));
         } break;
-        case GUI::ControlType::Label:
+        case ControlType::Label:
             break;
-        case GUI::ControlType::TextBox:
+        case ControlType::TextBox:
             break;
-        case GUI::ControlType::CheckBox:
+        case ControlType::CheckBox:
             break;
+        case ControlType::Header: {
+            Header* control = static_cast<Header*>(ctrl.get());
+            paramIt = jsonObj.Find("text");
+            if (paramIt != jsonObj.End()) {
+                control->SetText(static_cast<const json::String&>(paramIt->element).Value());
+            }
+        } break;
         default:
             throw std::runtime_error("Unknown control type '" + std::to_string(static_cast<int>(type)) + "'");
             break;

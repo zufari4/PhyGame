@@ -51,7 +51,7 @@
     <ClCompile Include="FontManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EventButtonClick.cpp">
+    <ClCompile Include="Header.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -90,6 +90,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="EventButtonClick.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Header.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

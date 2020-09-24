@@ -1,7 +1,6 @@
 #include "Graphics.h"
 #include "Client.h"
 #include "EventManager.h"
-#include "EventType.h"
 #include "GUI.h"
 #include "Utils.h"
 #include "ClientSettings.h"
@@ -28,8 +27,6 @@ bool Client::Init()
         EventManager::PushObserver(this, EventManager::EventType::Quit);
         EventManager::PushObserver(this, EventManager::EventType::ButtonClick);
         EventManager::PushObserver(this, EventManager::EventType::MouseUp);
-        int frameWidth = Graphics::GetFrameWidth();
-        int frameHeight = Graphics::GetFrameHeight();
         Graphics::SetCamera2D(0, 0);
         workFlag_ = true;
         state_ = GameState::MainMenu;
@@ -64,24 +61,24 @@ void Client::Free()
     GUI::Free();
 }
 
-void Client::EventHandling(const EventManager::IEvent& event)
+void Client::EventHandling(const EventManager::BaseEvent& event)
 {
     try
     {
-        switch (event.GetType())
+        switch (event.type)
         {
         case EventManager::EventType::Quit:
             workFlag_ = false;
             break;
         case EventManager::EventType::ButtonClick:
-            const EventManager::ButtonClickParam* params = (const EventManager::ButtonClickParam*)event.GetParams();
-            if (params->sender == "btnExit") {
+            const EventManager::EventButtonClick& ev = (const EventManager::EventButtonClick&)event;
+            if (ev.sender == "btnExit") {
                 workFlag_ = false;
             }
-            else if (params->sender == "createMechanizm") {
+            else if (ev.sender == "createMechanizm") {
                 state_ = GameState::SelectToolForMechanizm;
             }
-            else if (params->sender == "setShape") {
+            else if (ev.sender == "setShape") {
                 state_ = GameState::SetShape;
                 shapeConstructor_ = std::make_unique<ShapeConstructor>();
 

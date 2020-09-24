@@ -13,7 +13,7 @@ public:
     ~ShapeConstructor();
     void AddPoint(float x, float y);
     void Draw();
-    void EventHandling(const EventManager::IEvent& event) override;
+    void EventHandling(const EventManager::BaseEvent& event) override;
 private:
     void DrawPoints();
     void DrawShape();

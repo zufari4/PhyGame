@@ -57,8 +57,8 @@ namespace GUI
     void Button::ClickHandler() const
     {
         auto btnEvent = std::make_unique<EventManager::EventButtonClick>();
-        btnEvent->SetSender(name_);
-        btnEvent->SetFileActive(fileActivate_);
+        btnEvent->sender = name_;
+        btnEvent->fileActive = fileActivate_;
         EventManager::PushEvent(std::move(btnEvent));
     }
 

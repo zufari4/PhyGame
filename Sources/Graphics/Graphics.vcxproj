@@ -60,7 +60,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Libs\SDL2\include;$(SolutionDir)Sources\Shared;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Libs\SDL2\include;$(SolutionDir)Sources\Shared;$(SolutionDir)Sources\EventManager;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -114,6 +114,9 @@ copy /Y $(SolutionDir)Libs\SDL2\lib\SDL2.dll $(SolutionDir)Output\$(Configuratio
     <ClCompile Include="GraphicsSettings.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\EventManager\EventManager.vcxproj">
+      <Project>{f29d9b0d-a70b-45ac-8c37-f48e373695e3}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\Shared\Shared.vcxproj">
       <Project>{3e163046-37b7-4504-9aef-625700178a68}</Project>
     </ProjectReference>

@@ -1,7 +1,6 @@
 #include "EventManager.h"
 #include "IEventObserver.h"
-#include "EventType.h"
-#include "EventUnknown.h"
+#include "EventTypes.h"
 #include "EventQuit.h"
 #include "EventWindowResize.h"
 #include "EventMouseUp.h"
@@ -20,8 +19,8 @@ namespace EventManager {
     tdEvents eventsObservers_;
     std::recursive_mutex observerMutex_;
     std::recursive_mutex eventsMutex_;
-    std::queue<std::unique_ptr<IEvent>> events_;
-    const IEvent& GetSystemEvent(const SDL_Event& srcEvent);
+    std::queue<std::unique_ptr<BaseEvent>> events_;
+    const BaseEvent& GetSystemEvent(const SDL_Event& srcEvent);
     EventType GetEventType(const SDL_Event& srcEvent);
 
     LIB_API void ProcessEvents()
@@ -35,19 +34,19 @@ namespace EventManager {
             if (eventsObservers_.find(GetEventType(event)) == eventsObservers_.end()) continue;
             const auto& newEvent = GetSystemEvent(event);
 
-            for (auto observer : eventsObservers_[newEvent.GetType()]) {
+            for (auto observer : eventsObservers_[newEvent.type]) {
                 observer->EventHandling(newEvent);
             }
         }
 
         // Application events
         std::lock_guard<std::recursive_mutex> guardEvents(eventsMutex_);
-        std::unique_ptr<IEvent> appEvent;
+        std::unique_ptr<BaseEvent> appEvent;
         while (!events_.empty()) {
             appEvent = std::move(events_.front());
             events_.pop();
-            if (eventsObservers_.find(appEvent->GetType()) == eventsObservers_.end()) continue;
-            for (auto observer : eventsObservers_[appEvent->GetType()]) {
+            if (eventsObservers_.find(appEvent->type) == eventsObservers_.end()) continue;
+            for (auto observer : eventsObservers_[appEvent->type]) {
                 observer->EventHandling(*appEvent);
             }
         }
@@ -87,15 +86,15 @@ namespace EventManager {
         }
     }
 
-    LIB_API void PushEvent(std::unique_ptr<IEvent> event)
+    LIB_API void PushEvent(std::unique_ptr<BaseEvent> event)
     {
         std::lock_guard<std::recursive_mutex> g(eventsMutex_);
         events_.push(std::move(event));
     }
 
-    const IEvent& GetSystemEvent(const SDL_Event& srcEvent)
+    const BaseEvent& GetSystemEvent(const SDL_Event& srcEvent)
     {
-        static EventUnknow eventUnknown_;
+        static BaseEvent eventUnknown_(EventType::Undefined);
         static EventQuit eventQuit_;
         static EventWindowResize eventWindowResize_;
         static EventMouseUp eventMouseUp_;
@@ -107,27 +106,26 @@ namespace EventManager {
             return eventQuit_;
         } break;
         case SDL_MOUSEMOTION: {
-            eventMouseMove_.SetX(srcEvent.button.x);
-            eventMouseMove_.SetY(srcEvent.button.y);
+            eventMouseMove_.x = srcEvent.button.x;
+            eventMouseMove_.y = srcEvent.button.y;
             return eventMouseMove_;
         } break;
         case SDL_MOUSEBUTTONDOWN: {
-            eventMouseDown_.SetX(srcEvent.button.x);
-            eventMouseDown_.SetY(srcEvent.button.y);
-            eventMouseDown_.SetButton(srcEvent.button.button);
+            eventMouseDown_.x = srcEvent.button.x;
+            eventMouseDown_.y = srcEvent.button.y;
+            eventMouseDown_.button = srcEvent.button.button;
             return eventMouseDown_;
         } break;
         case SDL_MOUSEBUTTONUP: {
-            eventMouseUp_.SetX(srcEvent.button.x);
-            eventMouseUp_.SetY(srcEvent.button.y);
-            eventMouseUp_.SetButton(srcEvent.button.button);
+            eventMouseUp_.x = srcEvent.button.x;
+            eventMouseUp_.y = srcEvent.button.y;
+            eventMouseUp_.button = srcEvent.button.button;
             return eventMouseUp_;
         } break;
         case SDL_WINDOWEVENT: {
             if (srcEvent.window.event == SDL_WINDOWEVENT_RESIZED) {
-
-                eventWindowResize_.SetWindowWidth((int)srcEvent.window.data1);
-                eventWindowResize_.SetWindowWidth((int)srcEvent.window.data2);
+                eventWindowResize_.width = (int)srcEvent.window.data1;
+                eventWindowResize_.height = (int)srcEvent.window.data2;
                 return eventWindowResize_;
             }
             else {

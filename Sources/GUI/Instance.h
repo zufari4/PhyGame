@@ -15,7 +15,7 @@ namespace GUI
         Instance(SDL_Window* window, void* glContext, const std::string& configFile, const std::string& resourceDirectory);
         ~Instance();
         void ProcessFrame();
-        void EventHandling(const EventManager::IEvent& event) override;
+        void EventHandling(const EventManager::BaseEvent& event) override;
         void LoadGUI(const std::string& jsonFile);
         const std::string& GetResourceDirectory() const;
     private:

@@ -1,23 +1,13 @@
 #pragma once
 
-#include "IEvent.h"
+#include "BaseEvent.h"
 
 namespace EventManager
 {
-    struct MouseMoveParams : IEventParams
+    struct EventMouseMove : BaseEvent
     {
+        EventMouseMove() : BaseEvent(EventType::MouseMove) {}
         int x = 0;
         int y = 0;
-    };
-
-    class EventMouseMove : public IEvent
-    {
-    public:
-        EventMouseMove();
-        const IEventParams* GetParams() const override;
-        void SetX(int val);
-        void SetY(int val);
-    private:
-        MouseMoveParams mouseParams_;
     };
 }

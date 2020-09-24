@@ -1,7 +1,6 @@
 #include "Instance.h"
 #include "SettingsManager.h"
 #include "EventManager.h"
-#include "EventType.h"
 #include "GUISettings.h"
 #include "ControlFactory.h"
 #include "Utils.h"
@@ -80,9 +79,12 @@ namespace GUI
         ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
     }
 
-    void Instance::EventHandling(const EventManager::IEvent& event)
+    void Instance::EventHandling(const EventManager::BaseEvent& event)
     {
-        if (event.GetType() == EventManager::EventType::WindowResize) {
+        //if (event.GetType() == EventManager::EventType::WindowResize) {
+        //    ImGui_ImplSDL2_ProcessEvent();
+        //}
+        if (event.type == EventManager::EventType::WindowResize) {
             int winWidth;
             int winHeight;
             SDL_GL_GetDrawableSize(window_, &winWidth, &winHeight);
@@ -90,10 +92,10 @@ namespace GUI
             std::lock_guard<std::mutex> g(controlsMutex_);
             AlignHelper::UpdateControlsPosition(controls_, 0, 0, winWidth, winHeight);
         }
-        else if (event.GetType() == EventManager::EventType::ButtonClick) {
-            const EventManager::ButtonClickParam* params = (const EventManager::ButtonClickParam*)event.GetParams();
-            if (!params->fileActive.empty()) {
-                LoadGUI(resourceDirectory_ + "/" + params->fileActive);
+        else if (event.type == EventManager::EventType::ButtonClick) {
+            const EventManager::EventButtonClick& ev = (const EventManager::EventButtonClick&)event;
+            if (!ev.fileActive.empty()) {
+                LoadGUI(resourceDirectory_ + "/" + ev.fileActive);
             }
         }
     }
