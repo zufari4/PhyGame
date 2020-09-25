@@ -28,7 +28,13 @@ namespace GUI
                 }
             }
             ImGuiIO& io = ImGui::GetIO();
-            ImFont* font = io.Fonts->AddFontFromFileTTF(fileName.c_str(), size, NULL, io.Fonts->GetGlyphRangesCyrillic());
+            ImVector<ImWchar> ranges;
+            ImFontAtlas::GlyphRangesBuilder builder;
+            builder.AddRanges(io.Fonts->GetGlyphRangesDefault());
+            builder.AddRanges(io.Fonts->GetGlyphRangesCyrillic());
+            builder.AddChar(0x2190);
+            builder.BuildRanges(&ranges);
+            ImFont* font = io.Fonts->AddFontFromFileTTF(fileName.c_str(), size, nullptr, ranges.Data);
             if (font == NULL) {
                 throw std::runtime_error("Can't load font file '" + fileName + "'");
             }

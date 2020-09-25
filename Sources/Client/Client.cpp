@@ -74,6 +74,7 @@ void Client::EventHandling(const EventManager::BaseEvent& event)
             const EventManager::EventButtonClick& ev = (const EventManager::EventButtonClick&)event;
             if (ev.sender == "btnExit") {
                 workFlag_ = false;
+                state_ = GameState::Free;
             }
             else if (ev.sender == "createMechanizm") {
                 state_ = GameState::SelectToolForMechanizm;
@@ -81,6 +82,11 @@ void Client::EventHandling(const EventManager::BaseEvent& event)
             else if (ev.sender == "setShape") {
                 state_ = GameState::SetShape;
                 shapeConstructor_ = std::make_unique<ShapeConstructor>();
+
+            }
+            else if (ev.sender == "backToTools") {
+                state_ = GameState::SelectToolForMechanizm;
+                shapeConstructor_.reset();
 
             }
             break;

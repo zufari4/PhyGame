@@ -6,5 +6,6 @@ enum class GameState
     Init,
     MainMenu,
     SelectToolForMechanizm,
-    SetShape
+    SetShape,
+    Free
 };
