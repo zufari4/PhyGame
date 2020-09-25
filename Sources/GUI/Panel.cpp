@@ -12,7 +12,7 @@ namespace GUI
 
     void Panel::Render()
     {
-        ImGui::SetNextWindowPos(pos_, 0, zeroVec2);
+        ImGui::SetCursorPos(pos_);
         ImGui::PushStyleColor(ImGuiCol_ChildBg, bgColor_);
 
         ImGuiStyle& style = ImGui::GetStyle();

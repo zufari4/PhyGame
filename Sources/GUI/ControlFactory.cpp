@@ -5,8 +5,8 @@
 #include "FontManager.h"
 #include "Button.h"
 #include "Panel.h"
-#include "Header.h"
-
+#include "Label.h"
+#include "TextAlign.h"
 #include "elements.h"
 
 
@@ -27,13 +27,11 @@ namespace GUI
             ctrl = std::make_unique<Button>(name, parent);
             break;
         case ControlType::Label:
+            ctrl = std::make_unique<Label>(name, parent);
             break;
         case ControlType::TextBox:
             break;
         case ControlType::CheckBox:
-            break;
-        case ControlType::Header:
-            ctrl = std::make_unique<Header>(name, parent);
             break;
         default:
             break;
@@ -202,19 +200,32 @@ namespace GUI
             const auto activeColor = Utils::strtokf(static_cast<const json::String&>(paramIt->element).Value());
             control->SetActiveColor(ImVec4(activeColor[0], activeColor[1], activeColor[2], activeColor[3]));
         } break;
-        case ControlType::Label:
-            break;
-        case ControlType::TextBox:
-            break;
-        case ControlType::CheckBox:
-            break;
-        case ControlType::Header: {
-            Header* control = static_cast<Header*>(ctrl.get());
+        case ControlType::Label: {
+            Label* control = static_cast<Label*>(ctrl.get());
             paramIt = jsonObj.Find("text");
             if (paramIt != jsonObj.End()) {
                 control->SetText(static_cast<const json::String&>(paramIt->element).Value());
             }
+            paramIt = jsonObj.Find("bgColor");
+            if (paramIt != jsonObj.End()) {
+                const auto c = Utils::strtokf(static_cast<const json::String&>(paramIt->element).Value());
+                control->SetBackgroundColor(ImVec4(c[0], c[1], c[2], c[3]));
+            }
+            paramIt = jsonObj.Find("textColor");
+            if (paramIt != jsonObj.End()) {
+                const auto c = Utils::strtokf(static_cast<const json::String&>(paramIt->element).Value());
+                control->SetTextColor(ImVec4(c[0], c[1], c[2], c[3]));
+            }
+            paramIt = jsonObj.Find("textAlign");
+            if (paramIt != jsonObj.End()) {
+                const auto align = strToTextAlign(static_cast<const json::String&>(paramIt->element).Value());
+                control->SetTextAlign(align);
+            }
         } break;
+        case ControlType::TextBox:
+            break;
+        case ControlType::CheckBox:
+            break;
         default:
             throw std::runtime_error("Unknown control type '" + std::to_string(static_cast<int>(type)) + "'");
             break;

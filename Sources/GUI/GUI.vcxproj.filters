@@ -51,7 +51,10 @@
     <ClCompile Include="FontManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Header.cpp">
+    <ClCompile Include="Label.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TextAlign.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -92,7 +95,10 @@
     <ClInclude Include="EventButtonClick.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Header.h">
+    <ClInclude Include="Label.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TextAlign.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

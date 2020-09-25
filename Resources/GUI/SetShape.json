@@ -2,7 +2,7 @@
     "controls" : [
         {
             "type" : "panel",
-            "name" : "panelTools",
+            "name" : "panelShapeInfo",
             "posX" : 0,
             "posY" : 0,
             "width": 300,
@@ -14,25 +14,58 @@
             "bgColor" : "0.1,0.1,0.2,1.0",
             "controls" : [
                 {
-                    "type" : "header",
-                    "name" : "hdrListOfPoints",
+                    "type" : "panel",
+                    "name" : "panelListOfPoints",
+                    "posX" : 0,
+                    "posY" : 0,
+                    "width": 35,
+                    "height" : 200,
+                    "visible" : true,
+                    "align" : "top",
+                    "rounding" : 5.0,
+                    "bgColor" : "0.05,0.05,0.15,1.0",
+                    "controls" : [
+                        {
+                            "type" : "label",
+                            "name" : "labelListOfPoints",
+                            "posX" : 0,
+                            "posY" : 0,
+                            "width": 35,
+                            "height" : 24,
+                            "visible" : true,
+                            "align" : "top",
+                            "rounding" : 5.0,
+                            "fontFile" : "Fonts/JetBrainsMonoNL-Regular.ttf",
+                            "fontSize" : 17.0,
+                            "fontHinting" : 4,                   
+                            "text" : "Список точек",
+                            "textColor" : "0.9,0.9,1.0,1.0",
+                            "bgColor" : "0.2,0.3,0.3,1.0",
+                            "textAlign" : "MiddleCenter"
+                        }                  
+                    ]
+                },
+                {
+                    "type" : "button",
+                    "name" : "backToTools",
                     "posX" : 0,
                     "posY" : 0,
                     "width": 35,
                     "height" : 35,
                     "visible" : true,
-                    "align" : "top",
-                    "margin" : "0,0,0,0",
+                    "align" : "bottom",
+                    "margin" : "0,0,0,10",
                     "rounding" : 5.0,
                     "fontFile" : "Fonts/JetBrainsMonoNL-Regular.ttf",
                     "fontSize" : 17.0,
-                    "fontHinting" : 4,                   
-                    "text" : "        Список точек",
+                    "fontHinting" : 4,   
+                    "fileActivate" : "GUI/CreateMechanizm.json",                    
+                    "text" : "<- Назад",
                     "textColor" : "0.9,0.9,1.0,1.0",
                     "normalColor" : "0.3,0.3,0.4,1.0",
                     "hoverColor" : "0.4,0.4,0.5,1.0",
                     "activeColor" : "0.2,0.2,0.3,1.0"
-                }
+                }           
             ]
         }
     ]

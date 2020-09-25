@@ -12,8 +12,8 @@ namespace GUI
         else if (Utils::strncasecpm(str, "panel")) {
             return ControlType::Panel;
         }
-        else if (Utils::strncasecpm(str, "header")) {
-            return ControlType::Header;
+        else if (Utils::strncasecpm(str, "label")) {
+            return ControlType::Label;
         }
         else {
             return ControlType::Unknown;

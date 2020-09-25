@@ -13,7 +13,6 @@ namespace GUI
         Label,
         TextBox,
         CheckBox,
-        Header
     };
 
     ControlType strToControlType(const std::string& str);

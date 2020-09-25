@@ -110,9 +110,10 @@
     <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="GUI.cpp" />
     <ClCompile Include="GUISettings.cpp" />
-    <ClCompile Include="Header.cpp" />
+    <ClCompile Include="Label.cpp" />
     <ClCompile Include="Instance.cpp" />
     <ClCompile Include="Panel.cpp" />
+    <ClCompile Include="TextAlign.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AlignHelper.h" />
@@ -125,9 +126,10 @@
     <ClInclude Include="GUI.h" />
     <ClInclude Include="GUISettings.h" />
     <ClInclude Include="BaseControl.h" />
-    <ClInclude Include="Header.h" />
+    <ClInclude Include="Label.h" />
     <ClInclude Include="Instance.h" />
     <ClInclude Include="Panel.h" />
+    <ClInclude Include="TextAlign.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libs\freetype\builds\windows\vc2010\freetype.vcxproj">
