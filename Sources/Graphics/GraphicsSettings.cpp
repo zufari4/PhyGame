@@ -28,7 +28,7 @@ namespace Graphics
             { Graphics::Setting::SetAttribute_DEPTH_SIZE     , {"OpenGL",  "SetAttribute_DEPTH_SIZE", "0"} },
             { Graphics::Setting::SetAttribute_DOUBLEBUFFER   , {"OpenGL",  "SetAttribute_DOUBLEBUFFER", "1"} },
             { Graphics::Setting::SetAttribute_STENCIL_SIZE   , {"OpenGL",  "SetAttribute_STENCIL_SIZE", "0"} },
-            { Graphics::Setting::ClearColor   , {"OpenGL",  "ClearColor", "0.008,0.435,0.729"} },
+            { Graphics::Setting::ClearColor   , {"OpenGL",  "ClearColor", "0.08,0.08,0.085"} },
         };
 
         return defSettings;
