@@ -6,7 +6,7 @@ const SettingsManager::tdProperties& GetDefaultClientSettings()
     {
         { ClientSetting::GridVisible, {"Grid",  "Visible", "True"} },
         { ClientSetting::GridSize,    {"Grid",  "Size", "10.0f"} },
-        { ClientSetting::GUIMainFile,    {"GUI",  "MainFile", "MainMenu.json"} },
+        { ClientSetting::GUIMainFile,    {"GUI",  "MainFile", "GUI/MainMenu.json"} },
     };
 
     return defSettings;

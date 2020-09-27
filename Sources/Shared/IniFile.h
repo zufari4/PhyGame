@@ -13,7 +13,6 @@ public:
     ~Ini_file();
     bool Open(const std::string& filename);
     void Save();
-    void Close();
     int         Get_value(const std::string& section, const std::string& parameter, int default_value);
     int64_t     Get_value(const std::string& section, const std::string& parameter, int64_t default_value);
     uint64_t    Get_value(const std::string& section, const std::string& parameter, uint64_t default_value);
@@ -29,7 +28,7 @@ public:
     bool        ParameterExists(const std::string& section, const std::string& parameter);
     typedef std::pair<std::string/*name*/, std::string/*value*/> Ini_parameter;
 private:
-    std::fstream m_file_stream;
+    std::string filename_;
     std::map<std::string/*section*/, std::vector<Ini_parameter>> m_content;
     void Read_content();
     void Write_content();

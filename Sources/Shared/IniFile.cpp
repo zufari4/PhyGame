@@ -1,8 +1,10 @@
 #include "IniFile.h"
+#include "FileSystem.h"
 #include <algorithm> 
 #include <cctype>
 #include <sys/stat.h>
 #include <string.h> 
+#include <sstream>
 
 Ini_file::Ini_parameter empty_parameter = std::make_pair("", "");
 
@@ -12,41 +14,60 @@ Ini_file::Ini_file()
 
 Ini_file::~Ini_file()
 {
-    Close();
-}
-
-inline bool exists(const std::string& name) {
-    struct stat buffer;
-    return (stat(name.c_str(), &buffer) == 0);
 }
 
 bool Ini_file::Open(const std::string& filename)
 {
-    std::ios_base::openmode mode = std::ios_base::in | std::ios_base::out;
-    if (!exists(filename)) mode |= std::ios_base::trunc;
-    m_file_stream.open(filename, mode);
-    if (m_file_stream.is_open()) {
-        Read_content();
+    try
+    {
+		filename_ = filename;
+		Read_content();
         return true;
     }
-    else {
+    catch (const std::exception&)
+    {
         return false;
     }
 }
 
 void Ini_file::Save()
 {
-    if (m_file_stream.is_open()) {
-        Write_content();
-        m_file_stream.flush();
-    }
+    Write_content();
 }
 
-void Ini_file::Close()
+void Ini_file::Read_content()
 {
-    if (m_file_stream.is_open()) {
-        m_file_stream.close();
-    }
+    std::istringstream input;
+    input.str(FileSystem::ReadTextFile(filename_));
+	std::string line;
+	std::string section;
+	std::string tmp;
+	while (std::getline(input, line)) {
+		if (line[0] == '[') {
+			tmp = Get_section_name(line);
+			if (!tmp.empty()) {
+				section = tmp;
+			}
+		}
+		else if (!line.empty() && !section.empty()) {
+			Parse_parameter(section, line);
+		}
+	}
+}
+
+void Ini_file::Write_content()
+{
+    std::stringstream output;
+
+	for (const auto& sit : m_content) {
+        output << "[" << sit.first << "]\n";
+		for (const auto& pit : sit.second)
+		{
+            output << pit.first << "=" << pit.second << "\n";
+		}
+	}
+
+    FileSystem::WriteTextFile(filename_, output.str());
 }
 
 int Ini_file::Get_value(const std::string& section, const std::string& parameter, int default_value)
@@ -237,37 +258,5 @@ Ini_file::Ini_parameter& Ini_file::Find_parameter(const std::string& section, co
     }
 
     return empty_parameter;
-}
-
-void Ini_file::Read_content()
-{
-    std::string line;
-    std::string section;
-    std::string tmp;
-    while (std::getline(m_file_stream, line)) {
-        if (line[0] == '[') {
-            tmp = Get_section_name(line);
-            if (!tmp.empty()) {
-                section = tmp;
-            }
-        }
-        else if (!line.empty() && !section.empty()) {
-            Parse_parameter(section, line);
-        }
-    }
-}
-
-void Ini_file::Write_content()
-{
-    m_file_stream.clear();
-    m_file_stream.seekg(0, std::ios::beg);
-
-    for (const auto& sit : m_content) {
-        m_file_stream << "[" << sit.first << "]\n";
-        for (const auto& pit : sit.second)
-        {
-            m_file_stream << pit.first << "=" << pit.second << "\n";
-        }
-    }
 }
 

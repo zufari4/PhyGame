@@ -66,7 +66,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalDependencies>SDL2main.lib;SDL2.lib;opengl32.lib;</AdditionalDependencies>
+      <AdditionalDependencies>SDL2main.lib;SDL2.lib;opengl32.lib;User32.lib;</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)Libs\SDL2\lib;</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
@@ -93,7 +93,7 @@ copy /Y $(SolutionDir)Libs\SDL2\lib\SDL2.dll $(SolutionDir)Output\$(Configuratio
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalDependencies>SDL2main.lib;SDL2.lib;opengl32.lib;</AdditionalDependencies>
+      <AdditionalDependencies>SDL2main.lib;SDL2.lib;opengl32.lib;User32.lib;</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)Libs\SDL2\lib;</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>

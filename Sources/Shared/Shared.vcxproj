@@ -16,14 +16,16 @@
     <ClInclude Include="OS.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="SettingsManager.h" />
-    <ClInclude Include="Utils.h" />
+    <ClInclude Include="FileSystem.h" />
+    <ClInclude Include="StrUtils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="IniFile.cpp" />
     <ClCompile Include="JsonCast.cpp" />
     <ClCompile Include="OS.cpp" />
     <ClCompile Include="SettingsManager.cpp" />
-    <ClCompile Include="Utils.cpp" />
+    <ClCompile Include="FileSystem.cpp" />
+    <ClCompile Include="StrUtils.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

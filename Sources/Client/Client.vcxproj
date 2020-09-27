@@ -94,14 +94,12 @@
   <ItemGroup>
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="ClientSettings.cpp" />
-    <ClCompile Include="ErrorWindow.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="ShapeConstructor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h" />
     <ClInclude Include="ClientSettings.h" />
-    <ClInclude Include="ErrorWindow.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="ShapeConstructor.h" />
   </ItemGroup>

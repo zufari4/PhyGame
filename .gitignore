@@ -2,7 +2,8 @@
 /Libs/freetype/Release Multithreaded
 /Libs/freetype/builds/windows/vc2010/Release Multithreaded
 /Libs/freetype/builds/windows/vc2010/x64/Release Multithreaded
-/Output
+/Output/Debug/*.*
+/Output/Release/*.*
 /Sources/Client/Debug
 /Sources/EventManager/Debug
 /Sources/Graphics/Debug

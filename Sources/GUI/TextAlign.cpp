@@ -1,5 +1,5 @@
 #include "TextAlign.h"
-#include "Utils.h"
+#include "StrUtils.h"
 
 namespace GUI
 {
@@ -7,31 +7,31 @@ namespace GUI
     TextAlign strToTextAlign(const std::string& str)
     {
             
-        if (Utils::strncasecpm(str, "TopLeft")) {
+        if (StrUtils::strncasecpm(str, "TopLeft")) {
             return TextAlign::TopLeft;
         }
-        else if (Utils::strncasecpm(str, "TopCenter")) {
+        else if (StrUtils::strncasecpm(str, "TopCenter")) {
             return TextAlign::TopCenter;
         }
-        else if (Utils::strncasecpm(str, "TopRight")) {
+        else if (StrUtils::strncasecpm(str, "TopRight")) {
             return TextAlign::TopRight;
         }
-        else if (Utils::strncasecpm(str, "MiddleLeft")) {
+        else if (StrUtils::strncasecpm(str, "MiddleLeft")) {
             return TextAlign::MiddleLeft;
         }
-        else if (Utils::strncasecpm(str, "MiddleCenter")) {
+        else if (StrUtils::strncasecpm(str, "MiddleCenter")) {
             return TextAlign::MiddleCenter;
         }
-        else if (Utils::strncasecpm(str, "MiddleRight")) {
+        else if (StrUtils::strncasecpm(str, "MiddleRight")) {
             return TextAlign::MiddleRight;
         }
-        else if (Utils::strncasecpm(str, "BottomLeft")) {
+        else if (StrUtils::strncasecpm(str, "BottomLeft")) {
             return TextAlign::BottomLeft;
         }
-        else if (Utils::strncasecpm(str, "BottomCenter")) {
+        else if (StrUtils::strncasecpm(str, "BottomCenter")) {
             return TextAlign::BottomCenter;
         }
-        else if (Utils::strncasecpm(str, "BottomRight")) {
+        else if (StrUtils::strncasecpm(str, "BottomRight")) {
             return TextAlign::BottomRight;
         }
         else {

@@ -4,7 +4,6 @@
 #include "SystemEvent.h"
 #include "GUISettings.h"
 #include "ControlFactory.h"
-#include "Utils.h"
 #include "AlignHelper.h"
 #include "JsonCast.h"
 #include "EventButtonClick.h"

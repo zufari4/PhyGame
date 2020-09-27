@@ -2,9 +2,9 @@
 #include "Client.h"
 #include "EventManager.h"
 #include "GUI.h"
-#include "Utils.h"
+#include "FileSystem.h"
 #include "ClientSettings.h"
-#include "ErrorWindow.h"
+#include "OS.h"
 #include "EventMouseUp.h"
 #include "EventButtonClick.h"
 
@@ -34,7 +34,7 @@ bool Client::Init()
     }
     catch (const std::exception& e)
     {
-        ShowErroWindow(e.what());
+        OS::ShowErrorWindow(e.what());
         return false;
     }
 }
@@ -94,13 +94,13 @@ void Client::EventHandling(const EventManager::BaseEvent& event)
     }
     catch (const std::exception& e)
     {
-        ShowErroWindow(e.what());
+        OS::ShowErrorWindow(e.what());
     }
 }
 
 std::string Client::GetDataDir()
 {
-    return Utils::GetCurrentDirectory() + "/../../Resources";
+    return FileSystem::GetCurrentDirectory() + "/../../Resources";
 }
 
 std::string Client::GetConfigFileName()

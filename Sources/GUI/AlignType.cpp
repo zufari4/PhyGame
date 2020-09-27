@@ -1,27 +1,27 @@
 #include "AlignType.h"
-#include "Utils.h"
+#include "StrUtils.h"
 
 namespace GUI
 {
 
     AlignType strToAlign(const std::string& val)
     {
-        if (Utils::strncasecpm(val, "top")) {
+        if (StrUtils::strncasecpm(val, "top")) {
             return AlignType::Top;
         }
-        else if (Utils::strncasecpm(val, "bottom")) {
+        else if (StrUtils::strncasecpm(val, "bottom")) {
             return AlignType::Bottom;
         }
-        else if (Utils::strncasecpm(val, "left")) {
+        else if (StrUtils::strncasecpm(val, "left")) {
             return AlignType::Left;
         }
-        else if (Utils::strncasecpm(val, "right")) {
+        else if (StrUtils::strncasecpm(val, "right")) {
             return AlignType::Right;
         }
-        else if (Utils::strncasecpm(val, "fill")) {
+        else if (StrUtils::strncasecpm(val, "fill")) {
             return AlignType::Fill;
         }
-        else if (Utils::strncasecpm(val, "center")) {
+        else if (StrUtils::strncasecpm(val, "center")) {
             return AlignType::Center;
         }
         else {

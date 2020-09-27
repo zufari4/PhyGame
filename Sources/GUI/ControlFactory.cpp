@@ -1,6 +1,6 @@
 #include "ControlFactory.h"
 #include "ControlTypes.h"
-#include "Utils.h"
+#include "StrUtils.h"
 #include "AlignType.h"
 #include "FontManager.h"
 #include "Button.h"
@@ -96,14 +96,14 @@ namespace GUI
         std::array<int, 4> margin = { 0,0,0,0 };
         paramIt = jsonObj.Find("margin");
         if (paramIt != jsonObj.End()) {
-            auto v = Utils::strtoki(static_cast<const json::String&>(paramIt->element).Value());
+            auto v = StrUtils::strtoki(static_cast<const json::String&>(paramIt->element).Value());
             std::copy_n(v.begin(), 4, margin.begin());
         }
 
         std::array<int, 4> padding = { 0,0,0,0 };
         paramIt = jsonObj.Find("padding");
         if (paramIt != jsonObj.End()) {
-            auto v = Utils::strtoki(static_cast<const json::String&>(paramIt->element).Value());
+            auto v = StrUtils::strtoki(static_cast<const json::String&>(paramIt->element).Value());
             std::copy_n(v.begin(), 4, padding.begin());
         }
 
@@ -161,7 +161,7 @@ namespace GUI
                 throw std::runtime_error("Parameter 'bgColor' not found");
             }
             Panel* control = static_cast<Panel*>(ctrl.get());
-            const auto c = Utils::strtokf(static_cast<const json::String&>(paramIt->element).Value());
+            const auto c = StrUtils::strtokf(static_cast<const json::String&>(paramIt->element).Value());
             control->SetBgColor(ImVec4(c[0], c[1], c[2], c[3]));
         } break;
         case ControlType::Button: {
@@ -176,28 +176,28 @@ namespace GUI
             if (paramIt == jsonObj.End()) {
                 throw std::runtime_error("Parameter 'textColor' not found");
             }
-            const auto textColor = Utils::strtokf(static_cast<const json::String&>(paramIt->element).Value());
+            const auto textColor = StrUtils::strtokf(static_cast<const json::String&>(paramIt->element).Value());
             control->SetTextColor(ImVec4(textColor[0], textColor[1], textColor[2], textColor[3]));
 
             paramIt = jsonObj.Find("normalColor");
             if (paramIt == jsonObj.End()) {
                 throw std::runtime_error("Parameter 'normalColor' not found");
             }
-            const auto normalColor = Utils::strtokf(static_cast<const json::String&>(paramIt->element).Value());
+            const auto normalColor = StrUtils::strtokf(static_cast<const json::String&>(paramIt->element).Value());
             control->SetNormalColor(ImVec4(normalColor[0], normalColor[1], normalColor[2], normalColor[3]));
 
             paramIt = jsonObj.Find("hoverColor");
             if (paramIt == jsonObj.End()) {
                 throw std::runtime_error("Parameter 'hoverColor' not found");
             }
-            const auto hoverColor = Utils::strtokf(static_cast<const json::String&>(paramIt->element).Value());
+            const auto hoverColor = StrUtils::strtokf(static_cast<const json::String&>(paramIt->element).Value());
             control->SetHoverColor(ImVec4(hoverColor[0], hoverColor[1], hoverColor[2], hoverColor[3]));
 
             paramIt = jsonObj.Find("activeColor");
             if (paramIt == jsonObj.End()) {
                 throw std::runtime_error("Parameter 'activeColor' not found");
             }
-            const auto activeColor = Utils::strtokf(static_cast<const json::String&>(paramIt->element).Value());
+            const auto activeColor = StrUtils::strtokf(static_cast<const json::String&>(paramIt->element).Value());
             control->SetActiveColor(ImVec4(activeColor[0], activeColor[1], activeColor[2], activeColor[3]));
         } break;
         case ControlType::Label: {
@@ -208,12 +208,12 @@ namespace GUI
             }
             paramIt = jsonObj.Find("bgColor");
             if (paramIt != jsonObj.End()) {
-                const auto c = Utils::strtokf(static_cast<const json::String&>(paramIt->element).Value());
+                const auto c = StrUtils::strtokf(static_cast<const json::String&>(paramIt->element).Value());
                 control->SetBackgroundColor(ImVec4(c[0], c[1], c[2], c[3]));
             }
             paramIt = jsonObj.Find("textColor");
             if (paramIt != jsonObj.End()) {
-                const auto c = Utils::strtokf(static_cast<const json::String&>(paramIt->element).Value());
+                const auto c = StrUtils::strtokf(static_cast<const json::String&>(paramIt->element).Value());
                 control->SetTextColor(ImVec4(c[0], c[1], c[2], c[3]));
             }
             paramIt = jsonObj.Find("textAlign");

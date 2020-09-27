@@ -1,18 +1,18 @@
 #include "ControlTypes.h"
-#include "Utils.h"
+#include "StrUtils.h"
 
 namespace GUI
 {
 
     ControlType strToControlType(const std::string& str)
     {
-        if (Utils::strncasecpm(str, "button")) {
+        if (StrUtils::strncasecpm(str, "button")) {
             return ControlType::Button;
         }
-        else if (Utils::strncasecpm(str, "panel")) {
+        else if (StrUtils::strncasecpm(str, "panel")) {
             return ControlType::Panel;
         }
-        else if (Utils::strncasecpm(str, "label")) {
+        else if (StrUtils::strncasecpm(str, "label")) {
             return ControlType::Label;
         }
         else {

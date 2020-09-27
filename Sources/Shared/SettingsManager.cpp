@@ -1,6 +1,7 @@
 #include "SettingsManager.h"
 #include "IniFile.h"
-#include "Utils.h"
+#include "FileSystem.h"
+#include "StrUtils.h"
 #include <stdexcept>
 
 SettingsManager::SettingsManager(const std::string& configFile, const tdProperties& defaultSettings, bool fillConfigFile)
@@ -77,7 +78,7 @@ std::string SettingsManager::GetPropertyAsString(int propertyID) const
 bool SettingsManager::GetPropertyAsBool(int propertyID) const
 {
     const auto& defaultProperty = GetDefaultProperty(propertyID);
-    const bool defValue = Utils::stob(defaultProperty.value);
+    const bool defValue = StrUtils::stob(defaultProperty.value);
 
     Ini_file f;
     if (!f.Open(configFile_)) {
@@ -135,9 +136,9 @@ const SettingsManager::Property& SettingsManager::GetDefaultProperty(int propert
 
 void SettingsManager::createConfigFile() const
 {
-    auto configDir = Utils::ExtractPath(configFile_);
-    if (!Utils::DirectoryExists(configDir)) {
-        if (!Utils::CreateDirectory(configDir)) {
+    auto configDir = FileSystem::ExtractPath(configFile_);
+    if (!FileSystem::DirectoryExists(configDir)) {
+        if (!FileSystem::CreateDirectory(configDir)) {
             throw std::runtime_error("Can't create directory '" + configDir + "'");
         }
     }

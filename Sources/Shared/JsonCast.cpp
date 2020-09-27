@@ -1,5 +1,5 @@
 #include "JsonCast.h"
-#include "Utils.h"
+#include "FileSystem.h"
 #include "elements.h"
 #include "reader.h"
 #include <sstream>
@@ -8,7 +8,7 @@ namespace JsonCast
 {
     json::Object loadFromFile(const std::string& jsonFile)
     {
-        const auto jsonText = Utils::ReadFile(jsonFile);
+        const auto jsonText = FileSystem::ReadTextFile(jsonFile);
         std::istringstream istr(jsonText);
         json::Object obj;
         json::Reader::Read(obj, istr);
